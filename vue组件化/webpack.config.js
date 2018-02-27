@@ -11,7 +11,7 @@ module.exports = env => {
   }
   let plugins=[
     new CleanWebpackPlugin(['dist']),
-    new HtmlWebpackPlugin({template: './app/views/index.html'}),
+    new HtmlWebpackPlugin({ template: './app/views/index.html', favicon: './favicon.ico'}),
     new webpack.NamedModulesPlugin(),
     new webpack.HotModuleReplacementPlugin()
   ];
@@ -37,7 +37,7 @@ module.exports = env => {
       contentBase: './dist',
       hot: true,
       compress: true,
-      port: 9002,
+      port: 9003,
       clientLogLevel: "none",
       quiet: true
     },
