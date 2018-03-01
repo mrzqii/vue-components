@@ -1,1 +1,318 @@
-webpackJsonp([13],{0:function(e,r,t){e.exports=t(149)},2:function(e,r,t){"use strict";var s=t(1),o={login:function(e,r,t){s.request({url:s.getServerUrl("/user/login.do"),data:e,method:"POST",success:r,error:t})},checkUsername:function(e,r,t){s.request({url:s.getServerUrl("/user/check_valid.do"),data:{type:"username",str:e},method:"POST",success:r,error:t})},register:function(e,r,t){s.request({url:s.getServerUrl("/user/register.do"),data:e,method:"POST",success:r,error:t})},checkLogin:function(e,r){s.request({url:s.getServerUrl("/user/get_user_info.do"),method:"POST",success:e,error:r})},getQuestion:function(e,r,t){s.request({url:s.getServerUrl("/user/forget_get_question.do"),data:{username:e},method:"POST",success:r,error:t})},checkAnswer:function(e,r,t){s.request({url:s.getServerUrl("/user/forget_check_answer.do"),data:e,method:"POST",success:r,error:t})},resetPassword:function(e,r,t){s.request({url:s.getServerUrl("/user/forget_reset_password.do"),data:e,method:"POST",success:r,error:t})},getUserInfo:function(e,r){s.request({url:s.getServerUrl("/user/get_information.do"),method:"POST",success:e,error:r})},updateUserInfo:function(e,r,t){s.request({url:s.getServerUrl("/user/update_information.do"),data:e,method:"POST",success:r,error:t})},updatePassword:function(e,r,t){s.request({url:s.getServerUrl("/user/reset_password.do"),data:e,method:"POST",success:r,error:t})},logout:function(e,r){s.request({url:s.getServerUrl("/user/logout.do"),method:"POST",success:e,error:r})}};e.exports=o},18:function(e,r){},19:function(e,r,t){"use strict";t(18)},69:function(e,r){},149:function(e,r,t){"use strict";t(69),t(19);var s=t(2),o=t(1),n={show:function(e){$(".error-item").show().find(".err-msg").text(e)},hide:function(){$(".error-item").hide().find(".err-msg").text("")}},u={init:function(){this.bindEvent()},bindEvent:function(){var e=this;$("#username").blur(function(){var e=$.trim($(this).val());e&&s.checkUsername(e,function(e){n.hide()},function(e){n.show(e)})}),$("#submit").click(function(){e.submit()}),$(".user-content").keyup(function(r){13===r.keyCode&&e.submit()})},submit:function(){var e={username:$.trim($("#username").val()),password:$.trim($("#password").val()),passwordConfirm:$.trim($("#password-confirm").val()),phone:$.trim($("#phone").val()),email:$.trim($("#email").val()),question:$.trim($("#question").val()),answer:$.trim($("#answer").val())},r=this.formValidate(e);r.status?s.register(e,function(e){window.location.href="./result.html?type=register"},function(e){n.show(e)}):n.show(r.msg)},formValidate:function(e){var r={status:!1,msg:""};return o.validate(e.username,"require")?o.validate(e.password,"require")?e.password.length<6?(r.msg="密码长度不能少于6位",r):e.password!==e.passwordConfirm?(r.msg="两次输入的密码不一致",r):o.validate(e.phone,"phone")?o.validate(e.email,"email")?o.validate(e.question,"require")?o.validate(e.answer,"require")?(r.status=!0,r.msg="验证通过",r):(r.msg="密码提示问题答案不能为空",r):(r.msg="密码提示问题不能为空",r):(r.msg="邮箱格式不正确",r):(r.msg="手机号格式不正确",r):(r.msg="密码不能为空",r):(r.msg="用户名不能为空",r)}};$(function(){u.init()})}});
+webpackJsonp([16],{
+
+/***/ 0:
+/***/ (function(module, exports, __webpack_require__) {
+
+	module.exports = __webpack_require__(186);
+
+
+/***/ }),
+
+/***/ 15:
+/***/ (function(module, exports, __webpack_require__) {
+
+	/*
+	* @Author: zeng
+	* @Date:   2018-01-22 22:04:19
+	* @Last Modified by:   zeng
+	* @Last Modified time: 2018-01-25 09:37:34
+	*/
+
+	'use strict';
+
+	var _mm = __webpack_require__(8);
+
+	var _user = {
+	    // 用户登录
+	    login : function(userInfo, resolve, reject){
+	        _mm.request({
+	            url     : _mm.getServerUrl('/user/login.do'),
+	            data    : userInfo,
+	            method  : 'POST',
+	            success : resolve,
+	            error   : reject
+	        });
+	    },
+	    // 检查用户名
+	    checkUsername : function(username, resolve, reject){
+	        _mm.request({
+	            url     : _mm.getServerUrl('/user/check_valid.do'),
+	            data    : {
+	                type    : 'username',
+	                str     : username
+	            },
+	            method  : 'POST',
+	            success : resolve,
+	            error   : reject
+	        });
+	    },
+	    // 用户注册
+	    register : function(userInfo, resolve, reject){
+	        _mm.request({
+	            url     : _mm.getServerUrl('/user/register.do'),
+	            data    : userInfo,
+	            method  : 'POST',
+	            success : resolve,
+	            error   : reject
+	        });
+	    },
+	    // 检查登录状态
+	    checkLogin : function(resolve, reject){
+	        _mm.request({
+	            url     : _mm.getServerUrl('/user/get_user_info.do'),
+	            method  : 'POST',
+	            success : resolve,
+	            error   : reject
+	        });
+	    },
+	    // 获取用户密码提示问题
+	    getQuestion : function(username, resolve, reject){
+	        _mm.request({
+	            url     : _mm.getServerUrl('/user/forget_get_question.do'),
+	            data    : {
+	                username : username
+	            },
+	            method  : 'POST',
+	            success : resolve,
+	            error   : reject
+	        });
+	    },
+	    // 检查密码提示问题答案
+	    checkAnswer : function(userInfo, resolve, reject){
+	        _mm.request({
+	            url     : _mm.getServerUrl('/user/forget_check_answer.do'),
+	            data    : userInfo,
+	            method  : 'POST',
+	            success : resolve,
+	            error   : reject
+	        });
+	    },
+	    // 重置密码
+	    resetPassword : function(userInfo, resolve, reject){
+	        _mm.request({
+	            url     : _mm.getServerUrl('/user/forget_reset_password.do'),
+	            data    : userInfo,
+	            method  : 'POST',
+	            success : resolve,
+	            error   : reject
+	        });
+	    },
+	    // 获取用户信息
+	    getUserInfo : function(resolve, reject){
+	        _mm.request({
+	            url     : _mm.getServerUrl('/user/get_information.do'),
+	            method  : 'POST',
+	            success : resolve,
+	            error   : reject
+	        });
+	    },
+	    // 更新个人信息
+	    updateUserInfo : function(userInfo, resolve, reject){
+	        _mm.request({
+	            url     : _mm.getServerUrl('/user/update_information.do'),
+	            data    : userInfo,
+	            method  : 'POST',
+	            success : resolve,
+	            error   : reject
+	        });
+	    },
+	    // 登录状态下更新密码
+	    updatePassword : function(userInfo, resolve, reject){
+	        _mm.request({
+	            url     : _mm.getServerUrl('/user/reset_password.do'),
+	            data    : userInfo,
+	            method  : 'POST',
+	            success : resolve,
+	            error   : reject
+	        });
+	    },
+	    // 登出
+	    logout : function(resolve, reject){
+	        _mm.request({
+	            url     : _mm.getServerUrl('/user/logout.do'),
+	            method  : 'POST',
+	            success : resolve,
+	            error   : reject
+	        });
+	    }
+	}
+	module.exports = _user;
+
+/***/ }),
+
+/***/ 166:
+/***/ (function(module, exports, __webpack_require__) {
+
+	/*
+	* @Author: zeng
+	* @Date:   2018-01-22 20:33:27
+	* @Last Modified by:   zeng
+	* @Last Modified time: 2018-01-22 20:40:57
+	*/
+	'use strict'
+
+	__webpack_require__(167)
+
+/***/ }),
+
+/***/ 167:
+/***/ (function(module, exports) {
+
+	// removed by extract-text-webpack-plugin
+
+/***/ }),
+
+/***/ 186:
+/***/ (function(module, exports, __webpack_require__) {
+
+	/*
+	* @Author: zeng
+	* @Date:   2018-01-23 21:26:59
+	* @Last Modified by:   zeng
+	* @Last Modified time: 2018-01-24 09:55:31
+	*/
+
+	'use strict';
+	__webpack_require__(187);
+	__webpack_require__(166);
+	var _user   = __webpack_require__(15);
+	var _mm     = __webpack_require__(8);
+
+	// 表单里的错误提示
+	var formError = {
+	    show : function(errMsg){
+	        $('.error-item').show().find('.err-msg').text(errMsg);
+	    },
+	    hide : function(){
+	        $('.error-item').hide().find('.err-msg').text('');
+	    }
+	};
+
+	// page 逻辑部分
+	var page = {
+	    init: function(){
+	        this.bindEvent();
+	    },
+	    bindEvent : function(){
+	        var _this = this;
+	        // 验证username
+	        $('#username').blur(function(){
+	            var username = $.trim($(this).val());
+	            // 如果用户名为空，我们不做验证
+	            if(!username){
+	                return;
+	            }
+	            // 异步验证用户名是否存在
+	            _user.checkUsername(username, function(res){
+	                formError.hide();
+	            }, function(errMsg){
+	                formError.show(errMsg);
+	            });
+	        });
+	        // 注册按钮的点击
+	        $('#submit').click(function(){
+	            _this.submit();
+	        });
+	        // 如果按下回车，也进行提交
+	        $('.user-content').keyup(function(e){
+	            // keyCode == 13 表示回车键
+	            if(e.keyCode === 13){
+	                _this.submit();
+	            }
+	        });
+	    },
+	    // 提交表单
+	    submit : function(){
+	        var formData = {
+	                username        : $.trim($('#username').val()),
+	                password        : $.trim($('#password').val()),
+	                passwordConfirm : $.trim($('#password-confirm').val()),
+	                phone           : $.trim($('#phone').val()),
+	                email           : $.trim($('#email').val()),
+	                question        : $.trim($('#question').val()),
+	                answer          : $.trim($('#answer').val())
+	            };
+
+	            // 表单验证结果
+	           var validateResult = this.formValidate(formData);
+	        // 验证成功
+	        if(validateResult.status){
+	            _user.register(formData, function(res){
+	                window.location.href = './result.html?type=register';
+	            }, function(errMsg){
+	                formError.show(errMsg);
+	            });
+	        }
+	        // 验证失败
+	        else{
+	            // 错误提示
+	            formError.show(validateResult.msg);
+	        }
+
+	    },
+	    // 表单字段的验证
+	    formValidate : function(formData){
+	        var result = {
+	            status  : false,
+	            msg     : ''
+	        };
+	        // 验证用户名是否为空
+	        if(!_mm.validate(formData.username, 'require')){
+	            result.msg = '用户名不能为空';
+	            return result;
+	        }
+	        // 验证密码是否为空
+	        if(!_mm.validate(formData.password, 'require')){
+	            result.msg = '密码不能为空';
+	            return result;
+	        }
+	        // 验证密码长度
+	        if(formData.password.length < 6){
+	            result.msg = '密码长度不能少于6位';
+	            return result;
+	        }
+	        // 验证两次输入的密码是否一致
+	        if(formData.password !== formData.passwordConfirm){
+	            result.msg = '两次输入的密码不一致';
+	            return result;
+	        }
+	        // 验证手机号
+	        if(!_mm.validate(formData.phone, 'phone')){
+	            result.msg = '手机号格式不正确';
+	            return result;
+	        }
+	        // 验证邮箱格式
+	        if(!_mm.validate(formData.email, 'email')){
+	            result.msg = '邮箱格式不正确';
+	            return result;
+	        }
+	        // 验证密码提示问题是否为空
+	        if(!_mm.validate(formData.question, 'require')){
+	            result.msg = '密码提示问题不能为空';
+	            return result;
+	        }
+	        // 验证密码提示问题答案是否为空
+	        if(!_mm.validate(formData.answer, 'require')){
+	            result.msg = '密码提示问题答案不能为空';
+	            return result;
+	        }
+	        // 通过验证，返回正确提示
+	        result.status   = true;
+	        result.msg      = '验证通过';
+	        return result;
+	    }
+	};
+	$(function(){
+	    page.init();
+	});
+
+/***/ }),
+
+/***/ 187:
+/***/ (function(module, exports) {
+
+	// removed by extract-text-webpack-plugin
+
+/***/ })
+
+});

@@ -1,1 +1,504 @@
-webpackJsonp([9],{0:function(e,r,t){e.exports=t(142)},2:function(e,r,t){"use strict";var o=t(1),n={login:function(e,r,t){o.request({url:o.getServerUrl("/user/login.do"),data:e,method:"POST",success:r,error:t})},checkUsername:function(e,r,t){o.request({url:o.getServerUrl("/user/check_valid.do"),data:{type:"username",str:e},method:"POST",success:r,error:t})},register:function(e,r,t){o.request({url:o.getServerUrl("/user/register.do"),data:e,method:"POST",success:r,error:t})},checkLogin:function(e,r){o.request({url:o.getServerUrl("/user/get_user_info.do"),method:"POST",success:e,error:r})},getQuestion:function(e,r,t){o.request({url:o.getServerUrl("/user/forget_get_question.do"),data:{username:e},method:"POST",success:r,error:t})},checkAnswer:function(e,r,t){o.request({url:o.getServerUrl("/user/forget_check_answer.do"),data:e,method:"POST",success:r,error:t})},resetPassword:function(e,r,t){o.request({url:o.getServerUrl("/user/forget_reset_password.do"),data:e,method:"POST",success:r,error:t})},getUserInfo:function(e,r){o.request({url:o.getServerUrl("/user/get_information.do"),method:"POST",success:e,error:r})},updateUserInfo:function(e,r,t){o.request({url:o.getServerUrl("/user/update_information.do"),data:e,method:"POST",success:r,error:t})},updatePassword:function(e,r,t){o.request({url:o.getServerUrl("/user/reset_password.do"),data:e,method:"POST",success:r,error:t})},logout:function(e,r){o.request({url:o.getServerUrl("/user/logout.do"),method:"POST",success:e,error:r})}};e.exports=n},4:function(e,r,t){"use strict";var o=t(1),n={getCartCount:function(e,r){o.request({url:o.getServerUrl("/cart/get_cart_product_count.do"),success:e,error:r})},addToCart:function(e,r,t){o.request({url:o.getServerUrl("/cart/add.do"),data:e,success:r,error:t})},getCartList:function(e,r){o.request({url:o.getServerUrl("/cart/list.do"),success:e,error:r})},selectProduct:function(e,r,t){o.request({url:o.getServerUrl("/cart/select.do"),data:{productId:e},success:r,error:t})},unselectProduct:function(e,r,t){o.request({url:o.getServerUrl("/cart/un_select.do"),data:{productId:e},success:r,error:t})},selectAllProduct:function(e,r){o.request({url:o.getServerUrl("/cart/select_all.do"),success:e,error:r})},unselectAllProduct:function(e,r){o.request({url:o.getServerUrl("/cart/un_select_all.do"),success:e,error:r})},updateProduct:function(e,r,t){o.request({url:o.getServerUrl("/cart/update.do"),data:e,success:r,error:t})},deleteProduct:function(e,r,t){o.request({url:o.getServerUrl("/cart/delete_product.do"),data:{productIds:e},success:r,error:t})}};e.exports=n},5:function(e,r){},6:function(e,r){},7:function(e,r,t){"use strict";t(5);var o=t(1),n={init:function(){this.onLoad(),this.bindEvent()},onLoad:function(){var e=o.getUrlParam("keyword");e&&$("#search-input").val(e)},bindEvent:function(){var e=this;$("#search-btn").click(function(){e.searchSubmit()}),$("#search-input").keyup(function(r){13===r.keyCode&&e.searchSubmit()})},searchSubmit:function(){var e=$.trim($("#search-input").val());e?window.location.href="./list.html?keyword="+e:o.goHome()}};n.init()},8:function(e,r,t){"use strict";t(6);var o=t(1),n=t(2),s=t(4),u={init:function(){return this.bindEvent(),this.loadUserInfo(),this.loadCartCount(),this},bindEvent:function(){$(".js-login").click(function(){o.doLogin()}),$(".js-register").click(function(){window.location.href="./user-register.html"}),$(".js-logout").click(function(){n.logout(function(e){window.location.reload()},function(e){o.errorTips(e)})})},loadUserInfo:function(){n.checkLogin(function(e){$(".user.not-login").hide().siblings(".user.login").show().find(".username").text(e.username)},function(e){})},loadCartCount:function(){s.getCartCount(function(e){$(".nav .cart-count").text(e||0)},function(e){$(".nav .cart-count").text(0)})}};e.exports=u.init()},62:function(e,r){},83:function(e,r){e.exports='<p class="payment-tips">订单提交成功，请尽快支付！定单号：{{orderNo}}</p> <p class="payment-tips enhance">请使用支付宝App扫描如下二维码进行支付：</p> <div class="img-con"> <img class="qr-code" src="{{qrUrl}}" alt="支付二维码"/> </div>'},142:function(e,r,t){"use strict";t(62),t(8),t(7);var o=t(1),n=t(150),s=t(83),u={data:{orderNumber:o.getUrlParam("orderNumber")},init:function(){this.onLoad()},onLoad:function(){this.loadPaymentInfo()},loadPaymentInfo:function(){var e=this,r="",t=$(".page-wrap");t.html('<div class="loading"></div>'),n.getPaymentInfo(this.data.orderNumber,function(n){r=o.renderHtml(s,n),t.html(r),e.listenOrderStatus()},function(e){t.html('<p class="err-tip">'+e+"</p>")})},listenOrderStatus:function(){var e=this;this.paymentTimer=window.setInterval(function(){n.getPaymentStatus(e.data.orderNumber,function(r){1==r&&(window.location.href="./result.html?type=payment&orderNumber="+e.data.orderNumber)})},5e3)}};$(function(){u.init()})},150:function(e,r,t){"use strict";var o=t(1),n={getPaymentInfo:function(e,r,t){o.request({url:o.getServerUrl("/order/pay.do"),data:{orderNo:e},success:r,error:t})},getPaymentStatus:function(e,r,t){o.request({url:o.getServerUrl("/order/query_order_pay_status.do"),data:{orderNo:e},success:r,error:t})}};e.exports=n}});
+webpackJsonp([9],{
+
+/***/ 0:
+/***/ (function(module, exports, __webpack_require__) {
+
+	module.exports = __webpack_require__(158);
+
+
+/***/ }),
+
+/***/ 2:
+/***/ (function(module, exports, __webpack_require__) {
+
+	/*
+	* @Author: zeng
+	* @Date:   2018-01-22 22:04:19
+	* @Last Modified by:   zeng
+	* @Last Modified time: 2018-01-24 22:29:36
+	*/
+
+	'use strict';
+	__webpack_require__(3);
+	var _mm     = __webpack_require__(8);
+	// 通用页面头部
+	var header = {
+	    init : function(){
+	        this.onLoad();
+	        this.bindEvent();
+	    },
+	    onLoad : function(){
+	        var keyword = _mm.getUrlParam('keyword');
+	        // keyword存在，则回填输入框
+	        if(keyword){
+	            $('#search-input').val(keyword);
+	        };
+	    },
+	    bindEvent : function(){
+	        var _this = this;
+	        // 点击搜索按钮以后，做搜索提交
+	        $('#search-btn').click(function(){
+	            _this.searchSubmit();
+	        });
+	        // 输入会车后，做搜索提交
+	        $('#search-input').keyup(function(e){
+	            // 13是回车键的keyCode
+	            if(e.keyCode === 13){
+	                _this.searchSubmit();
+	            }
+	        });
+	    },
+	    // 搜索的提交
+	    searchSubmit : function(){
+	        var keyword = $.trim($('#search-input').val());
+	        // 如果提交的时候有keyword,正常跳转到list页
+	        if(keyword){
+	            window.location.href = './list.html?keyword=' + keyword;
+	        }
+	        // 如果keyword为空，直接返回首页
+	        else{
+	            _mm.goHome();
+	        }
+	    }
+	};
+
+	header.init();
+
+/***/ }),
+
+/***/ 3:
+/***/ (function(module, exports) {
+
+	// removed by extract-text-webpack-plugin
+
+/***/ }),
+
+/***/ 12:
+/***/ (function(module, exports, __webpack_require__) {
+
+	/*
+	* @Author: zeng
+	* @Date:   2018-01-19 14:51:58
+	* @Last Modified by:   zeng
+	* @Last Modified time: 2018-01-24 22:30:15
+	*/
+
+	'use strict';
+	__webpack_require__(13);
+	var _mm     = __webpack_require__(8);
+	var _user   = __webpack_require__(15);
+	var _cart   = __webpack_require__(16);
+	// 导航
+	var nav = {
+	    init : function(){
+	        this.bindEvent();
+	        this.loadUserInfo();
+	        this.loadCartCount();
+	        return this;
+	    },
+	    bindEvent : function(){
+	        // 登录点击事件
+	        $('.js-login').click(function(){
+	            _mm.doLogin();
+	        });
+	        // 注册点击事件
+	        $('.js-register').click(function(){
+	            window.location.href = './user-register.html';
+	        });
+	        // 退出点击事件
+	        $('.js-logout').click(function(){
+	            _user.logout(function(res){
+	                window.location.reload();
+	            }, function(errMsg){
+	                _mm.errorTips(errMsg);
+	            });
+	        });
+	    },
+	    // 加载用户信息
+	    loadUserInfo : function(){
+	        _user.checkLogin(function(res){
+	            $('.user.not-login').hide().siblings('.user.login').show()
+	                .find('.username').text(res.username);
+	        }, function(errMsg){
+	            // do nothing
+	        });
+	    },
+	    // 加载购物车数量
+	    loadCartCount : function(){
+	        _cart.getCartCount(function(res){
+	            $('.nav .cart-count').text(res || 0);
+	        }, function(errMsg){
+	            $('.nav .cart-count').text(0);
+	        });
+	    }
+	};
+
+	module.exports = nav.init();
+
+/***/ }),
+
+/***/ 13:
+/***/ (function(module, exports) {
+
+	// removed by extract-text-webpack-plugin
+
+/***/ }),
+
+/***/ 15:
+/***/ (function(module, exports, __webpack_require__) {
+
+	/*
+	* @Author: zeng
+	* @Date:   2018-01-22 22:04:19
+	* @Last Modified by:   zeng
+	* @Last Modified time: 2018-01-25 09:37:34
+	*/
+
+	'use strict';
+
+	var _mm = __webpack_require__(8);
+
+	var _user = {
+	    // 用户登录
+	    login : function(userInfo, resolve, reject){
+	        _mm.request({
+	            url     : _mm.getServerUrl('/user/login.do'),
+	            data    : userInfo,
+	            method  : 'POST',
+	            success : resolve,
+	            error   : reject
+	        });
+	    },
+	    // 检查用户名
+	    checkUsername : function(username, resolve, reject){
+	        _mm.request({
+	            url     : _mm.getServerUrl('/user/check_valid.do'),
+	            data    : {
+	                type    : 'username',
+	                str     : username
+	            },
+	            method  : 'POST',
+	            success : resolve,
+	            error   : reject
+	        });
+	    },
+	    // 用户注册
+	    register : function(userInfo, resolve, reject){
+	        _mm.request({
+	            url     : _mm.getServerUrl('/user/register.do'),
+	            data    : userInfo,
+	            method  : 'POST',
+	            success : resolve,
+	            error   : reject
+	        });
+	    },
+	    // 检查登录状态
+	    checkLogin : function(resolve, reject){
+	        _mm.request({
+	            url     : _mm.getServerUrl('/user/get_user_info.do'),
+	            method  : 'POST',
+	            success : resolve,
+	            error   : reject
+	        });
+	    },
+	    // 获取用户密码提示问题
+	    getQuestion : function(username, resolve, reject){
+	        _mm.request({
+	            url     : _mm.getServerUrl('/user/forget_get_question.do'),
+	            data    : {
+	                username : username
+	            },
+	            method  : 'POST',
+	            success : resolve,
+	            error   : reject
+	        });
+	    },
+	    // 检查密码提示问题答案
+	    checkAnswer : function(userInfo, resolve, reject){
+	        _mm.request({
+	            url     : _mm.getServerUrl('/user/forget_check_answer.do'),
+	            data    : userInfo,
+	            method  : 'POST',
+	            success : resolve,
+	            error   : reject
+	        });
+	    },
+	    // 重置密码
+	    resetPassword : function(userInfo, resolve, reject){
+	        _mm.request({
+	            url     : _mm.getServerUrl('/user/forget_reset_password.do'),
+	            data    : userInfo,
+	            method  : 'POST',
+	            success : resolve,
+	            error   : reject
+	        });
+	    },
+	    // 获取用户信息
+	    getUserInfo : function(resolve, reject){
+	        _mm.request({
+	            url     : _mm.getServerUrl('/user/get_information.do'),
+	            method  : 'POST',
+	            success : resolve,
+	            error   : reject
+	        });
+	    },
+	    // 更新个人信息
+	    updateUserInfo : function(userInfo, resolve, reject){
+	        _mm.request({
+	            url     : _mm.getServerUrl('/user/update_information.do'),
+	            data    : userInfo,
+	            method  : 'POST',
+	            success : resolve,
+	            error   : reject
+	        });
+	    },
+	    // 登录状态下更新密码
+	    updatePassword : function(userInfo, resolve, reject){
+	        _mm.request({
+	            url     : _mm.getServerUrl('/user/reset_password.do'),
+	            data    : userInfo,
+	            method  : 'POST',
+	            success : resolve,
+	            error   : reject
+	        });
+	    },
+	    // 登出
+	    logout : function(resolve, reject){
+	        _mm.request({
+	            url     : _mm.getServerUrl('/user/logout.do'),
+	            method  : 'POST',
+	            success : resolve,
+	            error   : reject
+	        });
+	    }
+	}
+	module.exports = _user;
+
+/***/ }),
+
+/***/ 16:
+/***/ (function(module, exports, __webpack_require__) {
+
+	/*
+	* @Author: zeng
+	* @Date:   2018-01-22 22:04:19
+	* @Last Modified by:   zeng
+	* @Last Modified time: 2018-01-24 22:26:41
+	*/
+
+	'use strict';
+
+	var _mm = __webpack_require__(8);
+
+	var _cart = {
+	    // 获取购物车数量
+	    getCartCount : function(resolve, reject){
+	        _mm.request({
+	            url     : _mm.getServerUrl('/cart/get_cart_product_count.do'),
+	            success : resolve,
+	            error   : reject
+	        });
+	    },
+	    // 添加到购物车
+	    addToCart : function(productInfo, resolve, reject){
+	        _mm.request({
+	            url     : _mm.getServerUrl('/cart/add.do'),
+	            data    : productInfo,
+	            success : resolve,
+	            error   : reject
+	        });
+	    },
+	    // 获取购物车列表
+	    getCartList : function(resolve, reject){
+	        _mm.request({
+	            url     : _mm.getServerUrl('/cart/list.do'),
+	            success : resolve,
+	            error   : reject
+	        });
+	    },
+	    // 选择购物车商品
+	    selectProduct : function(productId, resolve, reject){
+	        _mm.request({
+	            url     : _mm.getServerUrl('/cart/select.do'),
+	            data    : {
+	                productId : productId
+	            },
+	            success : resolve,
+	            error   : reject
+	        });
+	    },
+	    // 取消选择购物车商品
+	    unselectProduct : function(productId, resolve, reject){
+	        _mm.request({
+	            url     : _mm.getServerUrl('/cart/un_select.do'),
+	            data    : {
+	                productId : productId
+	            },
+	            success : resolve,
+	            error   : reject
+	        });
+	    },
+	    // 选中全部商品
+	    selectAllProduct : function(resolve, reject){
+	        _mm.request({
+	            url     : _mm.getServerUrl('/cart/select_all.do'),
+	            success : resolve,
+	            error   : reject
+	        });
+	    },
+	    // 取消选中全部商品
+	    unselectAllProduct : function(resolve, reject){
+	        _mm.request({
+	            url     : _mm.getServerUrl('/cart/un_select_all.do'),
+	            success : resolve,
+	            error   : reject
+	        });
+	    },
+	    // 更新购物车商品数量
+	    updateProduct : function(productInfo, resolve, reject){
+	        _mm.request({
+	            url     : _mm.getServerUrl('/cart/update.do'),
+	            data    : productInfo,
+	            success : resolve,
+	            error   : reject
+	        });
+	    },
+	    // 删除指定商品
+	    deleteProduct : function(productIds, resolve, reject){
+	        _mm.request({
+	            url     : _mm.getServerUrl('/cart/delete_product.do'),
+	            data    : {
+	                productIds : productIds
+	            },
+	            success : resolve,
+	            error   : reject
+	        });
+	    },
+	}
+	module.exports = _cart;
+
+/***/ }),
+
+/***/ 158:
+/***/ (function(module, exports, __webpack_require__) {
+
+	/*
+	* @Author: zeng
+	* @Date:   2018-01-30 14:23:50
+	* @Last Modified by:   zeng
+	* @Last Modified time: 2018-01-30 14:38:32
+	*/
+
+
+	'use strict';
+
+	__webpack_require__(159);
+	__webpack_require__(12);
+	__webpack_require__(2);
+	var _mm             = __webpack_require__(8);
+	var _payment        = __webpack_require__(161);
+	var templateIndex   = __webpack_require__(162);
+
+	// page 逻辑部分
+	var page = {
+	    data: {
+	        orderNumber : _mm.getUrlParam('orderNumber')
+	    },
+	    init: function(){
+	        this.onLoad();
+	    },
+	    onLoad : function(){
+	        this.loadPaymentInfo();
+	    },
+	    // 加载订单列表
+	    loadPaymentInfo: function(){
+	        var _this           = this,
+	            paymentHtml     = '',
+	            $pageWrap       = $('.page-wrap');
+	        $pageWrap.html('<div class="loading"></div>');
+	        _payment.getPaymentInfo(this.data.orderNumber, function(res){
+	            // 渲染html
+	            paymentHtml = _mm.renderHtml(templateIndex, res);
+	            $pageWrap.html(paymentHtml);
+	            _this.listenOrderStatus();
+	        }, function(errMsg){
+	            $pageWrap.html('<p class="err-tip">' + errMsg + '</p>');
+	        });
+	    },
+	    // 监听订单状态
+	    listenOrderStatus : function(){
+	        var _this = this;
+	        this.paymentTimer = window.setInterval(function(){
+	            _payment.getPaymentStatus(_this.data.orderNumber, function(res){
+	                if(res == true){
+	                    window.location.href 
+	                        = './result.html?type=payment&orderNumber=' + _this.data.orderNumber;
+	                }
+	            });
+	        }, 5e3);
+	    }
+	};
+	$(function(){
+	    page.init();
+	});
+
+/***/ }),
+
+/***/ 159:
+/***/ (function(module, exports) {
+
+	// removed by extract-text-webpack-plugin
+
+/***/ }),
+
+/***/ 161:
+/***/ (function(module, exports, __webpack_require__) {
+
+	/*
+	* @Author: zeng
+	* @Date:   2018-01-30 14:27:29
+	* @Last Modified by:   zeng
+	* @Last Modified time: 2018-01-30 14:27:40
+	*/
+
+
+
+	'use strict';
+	var _mm = __webpack_require__(8);
+
+	var _payment = {
+	    // 获取支付信息
+	    getPaymentInfo : function(orderNumber, resolve, reject){
+	        _mm.request({
+	            url     : _mm.getServerUrl('/order/pay.do'),
+	            data    : {
+	                orderNo : orderNumber
+	            },
+	            success : resolve,
+	            error   : reject
+	        });
+	    },
+	    // 获取订单状态
+	    getPaymentStatus : function(orderNumber, resolve, reject){
+	        _mm.request({
+	            url     : _mm.getServerUrl('/order/query_order_pay_status.do'),
+	            data    : {
+	                orderNo : orderNumber
+	            },
+	            success : resolve,
+	            error   : reject
+	        });
+	    }
+	}
+	module.exports = _payment;
+
+/***/ }),
+
+/***/ 162:
+/***/ (function(module, exports) {
+
+	module.exports = "<p class=\"payment-tips\">订单提交成功，请尽快支付！定单号：{{orderNo}}</p> <p class=\"payment-tips enhance\">请使用支付宝App扫描如下二维码进行支付：</p> <div class=\"img-con\"> <img class=\"qr-code\" src=\"{{qrUrl}}\" alt=\"支付二维码\"/> </div>";
+
+/***/ })
+
+});

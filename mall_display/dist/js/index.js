@@ -1,1 +1,508 @@
-webpackJsonp([1],{0:function(t,e,r){t.exports=r(136)},2:function(t,e,r){"use strict";var s=r(1),n={login:function(t,e,r){s.request({url:s.getServerUrl("/user/login.do"),data:t,method:"POST",success:e,error:r})},checkUsername:function(t,e,r){s.request({url:s.getServerUrl("/user/check_valid.do"),data:{type:"username",str:t},method:"POST",success:e,error:r})},register:function(t,e,r){s.request({url:s.getServerUrl("/user/register.do"),data:t,method:"POST",success:e,error:r})},checkLogin:function(t,e){s.request({url:s.getServerUrl("/user/get_user_info.do"),method:"POST",success:t,error:e})},getQuestion:function(t,e,r){s.request({url:s.getServerUrl("/user/forget_get_question.do"),data:{username:t},method:"POST",success:e,error:r})},checkAnswer:function(t,e,r){s.request({url:s.getServerUrl("/user/forget_check_answer.do"),data:t,method:"POST",success:e,error:r})},resetPassword:function(t,e,r){s.request({url:s.getServerUrl("/user/forget_reset_password.do"),data:t,method:"POST",success:e,error:r})},getUserInfo:function(t,e){s.request({url:s.getServerUrl("/user/get_information.do"),method:"POST",success:t,error:e})},updateUserInfo:function(t,e,r){s.request({url:s.getServerUrl("/user/update_information.do"),data:t,method:"POST",success:e,error:r})},updatePassword:function(t,e,r){s.request({url:s.getServerUrl("/user/reset_password.do"),data:t,method:"POST",success:e,error:r})},logout:function(t,e){s.request({url:s.getServerUrl("/user/logout.do"),method:"POST",success:t,error:e})}};t.exports=n},4:function(t,e,r){"use strict";var s=r(1),n={getCartCount:function(t,e){s.request({url:s.getServerUrl("/cart/get_cart_product_count.do"),success:t,error:e})},addToCart:function(t,e,r){s.request({url:s.getServerUrl("/cart/add.do"),data:t,success:e,error:r})},getCartList:function(t,e){s.request({url:s.getServerUrl("/cart/list.do"),success:t,error:e})},selectProduct:function(t,e,r){s.request({url:s.getServerUrl("/cart/select.do"),data:{productId:t},success:e,error:r})},unselectProduct:function(t,e,r){s.request({url:s.getServerUrl("/cart/un_select.do"),data:{productId:t},success:e,error:r})},selectAllProduct:function(t,e){s.request({url:s.getServerUrl("/cart/select_all.do"),success:t,error:e})},unselectAllProduct:function(t,e){s.request({url:s.getServerUrl("/cart/un_select_all.do"),success:t,error:e})},updateProduct:function(t,e,r){s.request({url:s.getServerUrl("/cart/update.do"),data:t,success:e,error:r})},deleteProduct:function(t,e,r){s.request({url:s.getServerUrl("/cart/delete_product.do"),data:{productIds:t},success:e,error:r})}};t.exports=n},5:function(t,e){},6:function(t,e){},7:function(t,e,r){"use strict";r(5);var s=r(1),n={init:function(){this.onLoad(),this.bindEvent()},onLoad:function(){var t=s.getUrlParam("keyword");t&&$("#search-input").val(t)},bindEvent:function(){var t=this;$("#search-btn").click(function(){t.searchSubmit()}),$("#search-input").keyup(function(e){13===e.keyCode&&t.searchSubmit()})},searchSubmit:function(){var t=$.trim($("#search-input").val());t?window.location.href="./list.html?keyword="+t:s.goHome()}};n.init()},8:function(t,e,r){"use strict";r(6);var s=r(1),n=r(2),i=r(4),o={init:function(){return this.bindEvent(),this.loadUserInfo(),this.loadCartCount(),this},bindEvent:function(){$(".js-login").click(function(){s.doLogin()}),$(".js-register").click(function(){window.location.href="./user-register.html"}),$(".js-logout").click(function(){n.logout(function(t){window.location.reload()},function(t){s.errorTips(t)})})},loadUserInfo:function(){n.checkLogin(function(t){$(".user.not-login").hide().siblings(".user.login").show().find(".username").text(t.username)},function(t){})},loadCartCount:function(){i.getCartCount(function(t){$(".nav .cart-count").text(t||0)},function(t){$(".nav .cart-count").text(0)})}};t.exports=o.init()},57:function(t,e){},70:function(t,e){},76:function(t,e,r){t.exports='<div class="banner"> <ul> <li> <a href="./list.html?categoryId=100021" target="_blank"> <img class="banner-img" src="'+r(86)+'"/> </a> </li> <li> <a href="./list.html?categoryId=100030" target="_blank"> <img class="banner-img" src="'+r(87)+'"/> </a> </li> <li> <a href="./list.html?categoryId=100016" target="_blank"> <img class="banner-img" src="'+r(88)+'"/> </a> </li> <li> <a href="./list.html?categoryId=100001" target="_blank"> <img class="banner-img" src="'+r(89)+'"/> </a> </li> <li> <a href="./list.html?categoryId=100021" target="_blank"> <img class="banner-img" src="'+r(90)+'"/> </a> </li> </ul> <div class="banner-arrow prev"> <i class="fa fa-angle-left"></i> </div> <div class="banner-arrow next"> <i class="fa fa-angle-right"></i> </div> </div>'},86:function(t,e,r){t.exports=r.p+"resource/banner1.jpg"},87:function(t,e,r){t.exports=r.p+"resource/banner2.jpg"},88:function(t,e,r){t.exports=r.p+"resource/banner3.jpg"},89:function(t,e,r){t.exports=r.p+"resource/banner4.jpg"},90:function(t,e,r){t.exports=r.p+"resource/banner5.jpg"},136:function(t,e,r){"use strict";r(57),r(8),r(7),r(152);var s=r(76),n=r(1);$(function(){var t=n.renderHtml(s);$(".banner-con").html(t);var e=$(".banner").unslider({dots:!0});$(".banner-con .banner-arrow").click(function(){var t=$(this).hasClass("prev")?"prev":"next";e.data("unslider")[t]()})})},152:function(t,e,r){"use strict";r(70),r(153)},153:function(t,e){window.console&&console.warn("This version of Unslider is due to be deprecated by December 1. Please visit unslider.com for details on how to upgrade."),function(t,e){if(!t)return e;var r=function(){this.el=e,this.items=e,this.sizes=[],this.max=[0,0],this.current=0,this.interval=e,this.opts={speed:500,delay:3e3,complete:e,keys:!e,dots:e,fluid:e};var r=this;this.init=function(e,r){return this.el=e,this.ul=e.children("ul"),this.max=[e.outerWidth(),e.outerHeight()],this.items=this.ul.children("li").each(this.calculate),this.opts=t.extend(this.opts,r),this.setup(),this},this.calculate=function(e){var s=t(this),n=s.outerWidth(),i=s.outerHeight();r.sizes[e]=[n,i],n>r.max[0]&&(r.max[0]=n),i>r.max[1]&&(r.max[1]=i)},this.setup=function(){if(this.el.css({overflow:"hidden",width:r.max[0],height:this.items.first().outerHeight()}),this.ul.css({width:100*this.items.length+"%",position:"relative"}),this.items.css("width",100/this.items.length+"%"),this.opts.delay!==e&&(this.start(),this.el.hover(this.stop,this.start)),this.opts.keys&&t(document).keydown(this.keys),this.opts.dots&&this.dots(),this.opts.fluid){var s=function(){r.el.css("width",Math.min(Math.round(r.el.outerWidth()/r.el.parent().outerWidth()*100),100)+"%")};s(),t(window).resize(s)}this.opts.arrows&&this.el.parent().append('<p class="arrows"><span class="prev">芒鈥犅�</span><span class="next">芒鈥犫€�</span></p>').find(".arrows span").click(function(){t.isFunction(r[this.className])&&r[this.className]()}),t.event.swipe&&this.el.on("swipeleft",r.prev).on("swiperight",r.next)},this.move=function(e,s){this.items.eq(e).length||(e=0),0>e&&(e=this.items.length-1);var n=this.items.eq(e),i={height:n.outerHeight()},o=s?5:this.opts.speed;this.ul.is(":animated")||(r.el.find(".dot:eq("+e+")").addClass("active").siblings().removeClass("active"),this.el.animate(i,o)&&this.ul.animate(t.extend({left:"-"+e+"00%"},i),o,function(){r.current=e,t.isFunction(r.opts.complete)&&!s&&r.opts.complete(r.el)}))},this.start=function(){r.interval=setInterval(function(){r.move(r.current+1)},r.opts.delay)},this.stop=function(){return r.interval=clearInterval(r.interval),r},this.keys=function(e){var s=e.which,n={37:r.prev,39:r.next,27:r.stop};t.isFunction(n[s])&&n[s]()},this.next=function(){return r.stop().move(r.current+1)},this.prev=function(){return r.stop().move(r.current-1)},this.dots=function(){var e='<ol class="dots">';t.each(this.items,function(t){e+='<li class="dot'+(1>t?" active":"")+'">'+(t+1)+"</li>"}),e+="</ol>",this.el.addClass("has-dots").append(e).find(".dot").click(function(){r.move(t(this).index())})}};t.fn.unslider=function(e){var s=this.length;return this.each(function(n){var i=t(this),o=(new r).init(i,e);i.data("unslider"+(s>1?"-"+(n+1):""),o)})}}(window.jQuery,!1)}});
+webpackJsonp([4],{
+
+/***/ 0:
+/***/ (function(module, exports, __webpack_require__) {
+
+	module.exports = __webpack_require__(115);
+
+
+/***/ }),
+
+/***/ 2:
+/***/ (function(module, exports, __webpack_require__) {
+
+	/*
+	* @Author: zeng
+	* @Date:   2018-01-22 22:04:19
+	* @Last Modified by:   zeng
+	* @Last Modified time: 2018-01-24 22:29:36
+	*/
+
+	'use strict';
+	__webpack_require__(3);
+	var _mm     = __webpack_require__(8);
+	// 通用页面头部
+	var header = {
+	    init : function(){
+	        this.onLoad();
+	        this.bindEvent();
+	    },
+	    onLoad : function(){
+	        var keyword = _mm.getUrlParam('keyword');
+	        // keyword存在，则回填输入框
+	        if(keyword){
+	            $('#search-input').val(keyword);
+	        };
+	    },
+	    bindEvent : function(){
+	        var _this = this;
+	        // 点击搜索按钮以后，做搜索提交
+	        $('#search-btn').click(function(){
+	            _this.searchSubmit();
+	        });
+	        // 输入会车后，做搜索提交
+	        $('#search-input').keyup(function(e){
+	            // 13是回车键的keyCode
+	            if(e.keyCode === 13){
+	                _this.searchSubmit();
+	            }
+	        });
+	    },
+	    // 搜索的提交
+	    searchSubmit : function(){
+	        var keyword = $.trim($('#search-input').val());
+	        // 如果提交的时候有keyword,正常跳转到list页
+	        if(keyword){
+	            window.location.href = './list.html?keyword=' + keyword;
+	        }
+	        // 如果keyword为空，直接返回首页
+	        else{
+	            _mm.goHome();
+	        }
+	    }
+	};
+
+	header.init();
+
+/***/ }),
+
+/***/ 3:
+/***/ (function(module, exports) {
+
+	// removed by extract-text-webpack-plugin
+
+/***/ }),
+
+/***/ 12:
+/***/ (function(module, exports, __webpack_require__) {
+
+	/*
+	* @Author: zeng
+	* @Date:   2018-01-19 14:51:58
+	* @Last Modified by:   zeng
+	* @Last Modified time: 2018-01-24 22:30:15
+	*/
+
+	'use strict';
+	__webpack_require__(13);
+	var _mm     = __webpack_require__(8);
+	var _user   = __webpack_require__(15);
+	var _cart   = __webpack_require__(16);
+	// 导航
+	var nav = {
+	    init : function(){
+	        this.bindEvent();
+	        this.loadUserInfo();
+	        this.loadCartCount();
+	        return this;
+	    },
+	    bindEvent : function(){
+	        // 登录点击事件
+	        $('.js-login').click(function(){
+	            _mm.doLogin();
+	        });
+	        // 注册点击事件
+	        $('.js-register').click(function(){
+	            window.location.href = './user-register.html';
+	        });
+	        // 退出点击事件
+	        $('.js-logout').click(function(){
+	            _user.logout(function(res){
+	                window.location.reload();
+	            }, function(errMsg){
+	                _mm.errorTips(errMsg);
+	            });
+	        });
+	    },
+	    // 加载用户信息
+	    loadUserInfo : function(){
+	        _user.checkLogin(function(res){
+	            $('.user.not-login').hide().siblings('.user.login').show()
+	                .find('.username').text(res.username);
+	        }, function(errMsg){
+	            // do nothing
+	        });
+	    },
+	    // 加载购物车数量
+	    loadCartCount : function(){
+	        _cart.getCartCount(function(res){
+	            $('.nav .cart-count').text(res || 0);
+	        }, function(errMsg){
+	            $('.nav .cart-count').text(0);
+	        });
+	    }
+	};
+
+	module.exports = nav.init();
+
+/***/ }),
+
+/***/ 13:
+/***/ (function(module, exports) {
+
+	// removed by extract-text-webpack-plugin
+
+/***/ }),
+
+/***/ 15:
+/***/ (function(module, exports, __webpack_require__) {
+
+	/*
+	* @Author: zeng
+	* @Date:   2018-01-22 22:04:19
+	* @Last Modified by:   zeng
+	* @Last Modified time: 2018-01-25 09:37:34
+	*/
+
+	'use strict';
+
+	var _mm = __webpack_require__(8);
+
+	var _user = {
+	    // 用户登录
+	    login : function(userInfo, resolve, reject){
+	        _mm.request({
+	            url     : _mm.getServerUrl('/user/login.do'),
+	            data    : userInfo,
+	            method  : 'POST',
+	            success : resolve,
+	            error   : reject
+	        });
+	    },
+	    // 检查用户名
+	    checkUsername : function(username, resolve, reject){
+	        _mm.request({
+	            url     : _mm.getServerUrl('/user/check_valid.do'),
+	            data    : {
+	                type    : 'username',
+	                str     : username
+	            },
+	            method  : 'POST',
+	            success : resolve,
+	            error   : reject
+	        });
+	    },
+	    // 用户注册
+	    register : function(userInfo, resolve, reject){
+	        _mm.request({
+	            url     : _mm.getServerUrl('/user/register.do'),
+	            data    : userInfo,
+	            method  : 'POST',
+	            success : resolve,
+	            error   : reject
+	        });
+	    },
+	    // 检查登录状态
+	    checkLogin : function(resolve, reject){
+	        _mm.request({
+	            url     : _mm.getServerUrl('/user/get_user_info.do'),
+	            method  : 'POST',
+	            success : resolve,
+	            error   : reject
+	        });
+	    },
+	    // 获取用户密码提示问题
+	    getQuestion : function(username, resolve, reject){
+	        _mm.request({
+	            url     : _mm.getServerUrl('/user/forget_get_question.do'),
+	            data    : {
+	                username : username
+	            },
+	            method  : 'POST',
+	            success : resolve,
+	            error   : reject
+	        });
+	    },
+	    // 检查密码提示问题答案
+	    checkAnswer : function(userInfo, resolve, reject){
+	        _mm.request({
+	            url     : _mm.getServerUrl('/user/forget_check_answer.do'),
+	            data    : userInfo,
+	            method  : 'POST',
+	            success : resolve,
+	            error   : reject
+	        });
+	    },
+	    // 重置密码
+	    resetPassword : function(userInfo, resolve, reject){
+	        _mm.request({
+	            url     : _mm.getServerUrl('/user/forget_reset_password.do'),
+	            data    : userInfo,
+	            method  : 'POST',
+	            success : resolve,
+	            error   : reject
+	        });
+	    },
+	    // 获取用户信息
+	    getUserInfo : function(resolve, reject){
+	        _mm.request({
+	            url     : _mm.getServerUrl('/user/get_information.do'),
+	            method  : 'POST',
+	            success : resolve,
+	            error   : reject
+	        });
+	    },
+	    // 更新个人信息
+	    updateUserInfo : function(userInfo, resolve, reject){
+	        _mm.request({
+	            url     : _mm.getServerUrl('/user/update_information.do'),
+	            data    : userInfo,
+	            method  : 'POST',
+	            success : resolve,
+	            error   : reject
+	        });
+	    },
+	    // 登录状态下更新密码
+	    updatePassword : function(userInfo, resolve, reject){
+	        _mm.request({
+	            url     : _mm.getServerUrl('/user/reset_password.do'),
+	            data    : userInfo,
+	            method  : 'POST',
+	            success : resolve,
+	            error   : reject
+	        });
+	    },
+	    // 登出
+	    logout : function(resolve, reject){
+	        _mm.request({
+	            url     : _mm.getServerUrl('/user/logout.do'),
+	            method  : 'POST',
+	            success : resolve,
+	            error   : reject
+	        });
+	    }
+	}
+	module.exports = _user;
+
+/***/ }),
+
+/***/ 16:
+/***/ (function(module, exports, __webpack_require__) {
+
+	/*
+	* @Author: zeng
+	* @Date:   2018-01-22 22:04:19
+	* @Last Modified by:   zeng
+	* @Last Modified time: 2018-01-24 22:26:41
+	*/
+
+	'use strict';
+
+	var _mm = __webpack_require__(8);
+
+	var _cart = {
+	    // 获取购物车数量
+	    getCartCount : function(resolve, reject){
+	        _mm.request({
+	            url     : _mm.getServerUrl('/cart/get_cart_product_count.do'),
+	            success : resolve,
+	            error   : reject
+	        });
+	    },
+	    // 添加到购物车
+	    addToCart : function(productInfo, resolve, reject){
+	        _mm.request({
+	            url     : _mm.getServerUrl('/cart/add.do'),
+	            data    : productInfo,
+	            success : resolve,
+	            error   : reject
+	        });
+	    },
+	    // 获取购物车列表
+	    getCartList : function(resolve, reject){
+	        _mm.request({
+	            url     : _mm.getServerUrl('/cart/list.do'),
+	            success : resolve,
+	            error   : reject
+	        });
+	    },
+	    // 选择购物车商品
+	    selectProduct : function(productId, resolve, reject){
+	        _mm.request({
+	            url     : _mm.getServerUrl('/cart/select.do'),
+	            data    : {
+	                productId : productId
+	            },
+	            success : resolve,
+	            error   : reject
+	        });
+	    },
+	    // 取消选择购物车商品
+	    unselectProduct : function(productId, resolve, reject){
+	        _mm.request({
+	            url     : _mm.getServerUrl('/cart/un_select.do'),
+	            data    : {
+	                productId : productId
+	            },
+	            success : resolve,
+	            error   : reject
+	        });
+	    },
+	    // 选中全部商品
+	    selectAllProduct : function(resolve, reject){
+	        _mm.request({
+	            url     : _mm.getServerUrl('/cart/select_all.do'),
+	            success : resolve,
+	            error   : reject
+	        });
+	    },
+	    // 取消选中全部商品
+	    unselectAllProduct : function(resolve, reject){
+	        _mm.request({
+	            url     : _mm.getServerUrl('/cart/un_select_all.do'),
+	            success : resolve,
+	            error   : reject
+	        });
+	    },
+	    // 更新购物车商品数量
+	    updateProduct : function(productInfo, resolve, reject){
+	        _mm.request({
+	            url     : _mm.getServerUrl('/cart/update.do'),
+	            data    : productInfo,
+	            success : resolve,
+	            error   : reject
+	        });
+	    },
+	    // 删除指定商品
+	    deleteProduct : function(productIds, resolve, reject){
+	        _mm.request({
+	            url     : _mm.getServerUrl('/cart/delete_product.do'),
+	            data    : {
+	                productIds : productIds
+	            },
+	            success : resolve,
+	            error   : reject
+	        });
+	    },
+	}
+	module.exports = _cart;
+
+/***/ }),
+
+/***/ 115:
+/***/ (function(module, exports, __webpack_require__) {
+
+	/*
+	* @Author: Administrator
+	* @Date:   2018-01-18 22:06:01
+	* @Last Modified by:   zeng
+	* @Last Modified time: 2018-01-25 16:09:39
+	*/
+
+	'use strict';
+	__webpack_require__(116);
+	__webpack_require__(12);
+	__webpack_require__(2);
+	__webpack_require__(118);
+	// var navSide         = require('page/common/nav-side/index.js');
+	var templateBanner  = __webpack_require__(122);
+	var _mm             = __webpack_require__(8);
+
+	$(function() {
+	    // 渲染banner的html
+	    var bannerHtml  = _mm.renderHtml(templateBanner);
+	    $('.banner-con').html(bannerHtml);
+	    // 初始化banner
+	    var $slider     = $('.banner').unslider({
+	        dots: true
+	    });
+	    // 前一张和后一张操作的事件绑定
+	    $('.banner-con .banner-arrow').click(function(){
+	        var forward = $(this).hasClass('prev') ? 'prev' : 'next';
+	        $slider.data('unslider')[forward]();
+	    });
+	});
+
+
+
+/***/ }),
+
+/***/ 116:
+/***/ (function(module, exports) {
+
+	// removed by extract-text-webpack-plugin
+
+/***/ }),
+
+/***/ 118:
+/***/ (function(module, exports, __webpack_require__) {
+
+	/*
+	* @Author: zeng
+	* @Date:   2018-01-25 15:58:58
+	* @Last Modified by:   zeng
+	* @Last Modified time: 2018-01-25 16:00:13
+	*/
+
+
+	'use strict';
+
+	__webpack_require__(119);
+	__webpack_require__(121);
+
+/***/ }),
+
+/***/ 119:
+/***/ (function(module, exports) {
+
+	// removed by extract-text-webpack-plugin
+
+/***/ }),
+
+/***/ 121:
+/***/ (function(module, exports) {
+
+	/*
+	* @Author: zeng
+	* @Date:   2018-01-25 15:59:21
+	* @Last Modified by:   zeng
+	* @Last Modified time: 2018-01-25 15:59:45
+	*/
+
+	window.console&&console.warn("This version of Unslider is due to be deprecated by December 1. Please visit unslider.com for details on how to upgrade."),function(t,s){if(!t)return s;var i=function(){this.el=s,this.items=s,this.sizes=[],this.max=[0,0],this.current=0,this.interval=s,this.opts={speed:500,delay:3e3,complete:s,keys:!s,dots:s,fluid:s};var i=this;this.init=function(s,i){return this.el=s,this.ul=s.children("ul"),this.max=[s.outerWidth(),s.outerHeight()],this.items=this.ul.children("li").each(this.calculate),this.opts=t.extend(this.opts,i),this.setup(),this},this.calculate=function(s){var e=t(this),n=e.outerWidth(),h=e.outerHeight();i.sizes[s]=[n,h],n>i.max[0]&&(i.max[0]=n),h>i.max[1]&&(i.max[1]=h)},this.setup=function(){if(this.el.css({overflow:"hidden",width:i.max[0],height:this.items.first().outerHeight()}),this.ul.css({width:100*this.items.length+"%",position:"relative"}),this.items.css("width",100/this.items.length+"%"),this.opts.delay!==s&&(this.start(),this.el.hover(this.stop,this.start)),this.opts.keys&&t(document).keydown(this.keys),this.opts.dots&&this.dots(),this.opts.fluid){var e=function(){i.el.css("width",Math.min(Math.round(i.el.outerWidth()/i.el.parent().outerWidth()*100),100)+"%")};e(),t(window).resize(e)}this.opts.arrows&&this.el.parent().append('<p class="arrows"><span class="prev">芒鈥犅�</span><span class="next">芒鈥犫€�</span></p>').find(".arrows span").click(function(){t.isFunction(i[this.className])&&i[this.className]()}),t.event.swipe&&this.el.on("swipeleft",i.prev).on("swiperight",i.next)},this.move=function(s,e){this.items.eq(s).length||(s=0),0>s&&(s=this.items.length-1);var n=this.items.eq(s),h={height:n.outerHeight()},o=e?5:this.opts.speed;this.ul.is(":animated")||(i.el.find(".dot:eq("+s+")").addClass("active").siblings().removeClass("active"),this.el.animate(h,o)&&this.ul.animate(t.extend({left:"-"+s+"00%"},h),o,function(){i.current=s,t.isFunction(i.opts.complete)&&!e&&i.opts.complete(i.el)}))},this.start=function(){i.interval=setInterval(function(){i.move(i.current+1)},i.opts.delay)},this.stop=function(){return i.interval=clearInterval(i.interval),i},this.keys=function(s){var e=s.which,n={37:i.prev,39:i.next,27:i.stop};t.isFunction(n[e])&&n[e]()},this.next=function(){return i.stop().move(i.current+1)},this.prev=function(){return i.stop().move(i.current-1)},this.dots=function(){var s='<ol class="dots">';t.each(this.items,function(t){s+='<li class="dot'+(1>t?" active":"")+'">'+(t+1)+"</li>"}),s+="</ol>",this.el.addClass("has-dots").append(s).find(".dot").click(function(){i.move(t(this).index())})}};t.fn.unslider=function(s){var e=this.length;return this.each(function(n){var h=t(this),o=(new i).init(h,s);h.data("unslider"+(e>1?"-"+(n+1):""),o)})}}(window.jQuery,!1);
+
+/***/ }),
+
+/***/ 122:
+/***/ (function(module, exports, __webpack_require__) {
+
+	module.exports = "<div class=\"banner\"> <ul> <li> <a href=\"./list.html?categoryId=100021\" target=\"_blank\"> <img class=\"banner-img\" src=\"" + __webpack_require__(123) + "\"/> </a> </li> <li> <a href=\"./list.html?categoryId=100030\" target=\"_blank\"> <img class=\"banner-img\" src=\"" + __webpack_require__(124) + "\"/> </a> </li> <li> <a href=\"./list.html?categoryId=100016\" target=\"_blank\"> <img class=\"banner-img\" src=\"" + __webpack_require__(125) + "\"/> </a> </li> <li> <a href=\"./list.html?categoryId=100001\" target=\"_blank\"> <img class=\"banner-img\" src=\"" + __webpack_require__(126) + "\"/> </a> </li> <li> <a href=\"./list.html?categoryId=100021\" target=\"_blank\"> <img class=\"banner-img\" src=\"" + __webpack_require__(127) + "\"/> </a> </li> </ul> <div class=\"banner-arrow prev\"> <i class=\"fa fa-angle-left\"></i> </div> <div class=\"banner-arrow next\"> <i class=\"fa fa-angle-right\"></i> </div> </div>";
+
+/***/ }),
+
+/***/ 123:
+/***/ (function(module, exports, __webpack_require__) {
+
+	module.exports = __webpack_require__.p + "resource/banner1.jpg";
+
+/***/ }),
+
+/***/ 124:
+/***/ (function(module, exports, __webpack_require__) {
+
+	module.exports = __webpack_require__.p + "resource/banner2.jpg";
+
+/***/ }),
+
+/***/ 125:
+/***/ (function(module, exports, __webpack_require__) {
+
+	module.exports = __webpack_require__.p + "resource/banner3.jpg";
+
+/***/ }),
+
+/***/ 126:
+/***/ (function(module, exports, __webpack_require__) {
+
+	module.exports = __webpack_require__.p + "resource/banner4.jpg";
+
+/***/ }),
+
+/***/ 127:
+/***/ (function(module, exports, __webpack_require__) {
+
+	module.exports = __webpack_require__.p + "resource/banner5.jpg";
+
+/***/ })
+
+});

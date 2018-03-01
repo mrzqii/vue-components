@@ -1,1 +1,714 @@
-webpackJsonp([2],{0:function(e,t,r){e.exports=r(141)},2:function(e,t,r){"use strict";var s=r(1),a={login:function(e,t,r){s.request({url:s.getServerUrl("/user/login.do"),data:e,method:"POST",success:t,error:r})},checkUsername:function(e,t,r){s.request({url:s.getServerUrl("/user/check_valid.do"),data:{type:"username",str:e},method:"POST",success:t,error:r})},register:function(e,t,r){s.request({url:s.getServerUrl("/user/register.do"),data:e,method:"POST",success:t,error:r})},checkLogin:function(e,t){s.request({url:s.getServerUrl("/user/get_user_info.do"),method:"POST",success:e,error:t})},getQuestion:function(e,t,r){s.request({url:s.getServerUrl("/user/forget_get_question.do"),data:{username:e},method:"POST",success:t,error:r})},checkAnswer:function(e,t,r){s.request({url:s.getServerUrl("/user/forget_check_answer.do"),data:e,method:"POST",success:t,error:r})},resetPassword:function(e,t,r){s.request({url:s.getServerUrl("/user/forget_reset_password.do"),data:e,method:"POST",success:t,error:r})},getUserInfo:function(e,t){s.request({url:s.getServerUrl("/user/get_information.do"),method:"POST",success:e,error:t})},updateUserInfo:function(e,t,r){s.request({url:s.getServerUrl("/user/update_information.do"),data:e,method:"POST",success:t,error:r})},updatePassword:function(e,t,r){s.request({url:s.getServerUrl("/user/reset_password.do"),data:e,method:"POST",success:t,error:r})},logout:function(e,t){s.request({url:s.getServerUrl("/user/logout.do"),method:"POST",success:e,error:t})}};e.exports=a},4:function(e,t,r){"use strict";var s=r(1),a={getCartCount:function(e,t){s.request({url:s.getServerUrl("/cart/get_cart_product_count.do"),success:e,error:t})},addToCart:function(e,t,r){s.request({url:s.getServerUrl("/cart/add.do"),data:e,success:t,error:r})},getCartList:function(e,t){s.request({url:s.getServerUrl("/cart/list.do"),success:e,error:t})},selectProduct:function(e,t,r){s.request({url:s.getServerUrl("/cart/select.do"),data:{productId:e},success:t,error:r})},unselectProduct:function(e,t,r){s.request({url:s.getServerUrl("/cart/un_select.do"),data:{productId:e},success:t,error:r})},selectAllProduct:function(e,t){s.request({url:s.getServerUrl("/cart/select_all.do"),success:e,error:t})},unselectAllProduct:function(e,t){s.request({url:s.getServerUrl("/cart/un_select_all.do"),success:e,error:t})},updateProduct:function(e,t,r){s.request({url:s.getServerUrl("/cart/update.do"),data:e,success:t,error:r})},deleteProduct:function(e,t,r){s.request({url:s.getServerUrl("/cart/delete_product.do"),data:{productIds:e},success:t,error:r})}};e.exports=a},5:function(e,t){},6:function(e,t){},7:function(e,t,r){"use strict";r(5);var s=r(1),a={init:function(){this.onLoad(),this.bindEvent()},onLoad:function(){var e=s.getUrlParam("keyword");e&&$("#search-input").val(e)},bindEvent:function(){var e=this;$("#search-btn").click(function(){e.searchSubmit()}),$("#search-input").keyup(function(t){13===t.keyCode&&e.searchSubmit()})},searchSubmit:function(){var e=$.trim($("#search-input").val());e?window.location.href="./list.html?keyword="+e:s.goHome()}};a.init()},8:function(e,t,r){"use strict";r(6);var s=r(1),a=r(2),n=r(4),o={init:function(){return this.bindEvent(),this.loadUserInfo(),this.loadCartCount(),this},bindEvent:function(){$(".js-login").click(function(){s.doLogin()}),$(".js-register").click(function(){window.location.href="./user-register.html"}),$(".js-logout").click(function(){a.logout(function(e){window.location.reload()},function(e){s.errorTips(e)})})},loadUserInfo:function(){a.checkLogin(function(e){$(".user.not-login").hide().siblings(".user.login").show().find(".username").text(e.username)},function(e){})},loadCartCount:function(){n.getCartCount(function(e){$(".nav .cart-count").text(e||0)},function(e){$(".nav .cart-count").text(0)})}};e.exports=o.init()},13:function(e,t){},14:function(e,t){e.exports='{{#navList}} {{#isActive}} <li class="nav-item active"> {{/isActive}} {{^isActive}} </li><li class="nav-item"> {{/isActive}} <a class="link" href="{{href}}">{{desc}}</a> </li> {{/navList}} '},16:function(e,t,r){"use strict";r(13);var s=r(1),a=r(14),n={option:{name:"",navList:[{name:"user-center",desc:"个人中心",href:"./user-center.html"},{name:"order-list",desc:"我的订单",href:"./order-list.html"},{name:"user-pass-update",desc:"修改密码",href:"./user-pass-update.html"},{name:"about",desc:"关于MMall",href:"./about.html"}]},init:function(e){$.extend(this.option,e),this.renderNav()},renderNav:function(){for(var e=0,t=this.option.navList.length;e<t;e++)this.option.navList[e].name===this.option.name&&(this.option.navList[e].isActive=!0);var r=s.renderHtml(a,{navList:this.option.navList});$(".nav-side").html(r)}};e.exports=n},25:function(e,t,r){"use strict";var s=r(1),a={getProductList:function(e,t){s.request({url:s.getServerUrl("/order/get_order_cart_product.do"),success:e,error:t})},createOrder:function(e,t,r){s.request({url:s.getServerUrl("/order/create.do"),data:e,success:t,error:r})},getOrderList:function(e,t,r){s.request({url:s.getServerUrl("/order/list.do"),data:e,success:t,error:r})},getOrderDetail:function(e,t,r){s.request({url:s.getServerUrl("/order/detail.do"),data:{orderNo:e},success:t,error:r})},cancelOrder:function(e,t,r){s.request({url:s.getServerUrl("/order/cancel.do"),data:{orderNo:e},success:t,error:r})}};e.exports=a},28:function(e,t){},29:function(e,t){e.exports='<div class="pg-content"> {{#pageArray}} {{#disabled}} <span class="pg-item disabled" data-value="{{value}}">{{name}}</span> {{/disabled}} {{^disabled}} {{#active}} <span class="pg-item active" data-value="{{value}}">{{name}}</span> {{/active}} {{^active}} <span class="pg-item" data-value="{{value}}">{{name}}</span> {{/active}} {{/disabled}} {{/pageArray}} <span class="pg-total">{{pageNum}} / {{pages}}</span> </div>'},35:function(e,t,r){"use strict";r(28);var s=r(1),a=r(29),n=function(){var e=this;this.defaultOption={container:null,pageNum:1,pageRange:3,onSelectPage:null},$(document).on("click",".pg-item",function(){var t=$(this);t.hasClass("active")||t.hasClass("disabled")||("function"==typeof e.option.onSelectPage?e.option.onSelectPage(t.data("value")):null)})};n.prototype.render=function(e){this.option=$.extend({},this.defaultOption,e),this.option.container instanceof jQuery&&(this.option.pages<=1||this.option.container.html(this.getPaginationHtml()))},n.prototype.getPaginationHtml=function(){var e="",t=this.option,r=[],n=t.pageNum-t.pageRange>0?t.pageNum-t.pageRange:1,o=t.pageNum+t.pageRange<t.pages?t.pageNum+t.pageRange:t.pages;r.push({name:"上一页",value:this.option.prePage,disabled:!this.option.hasPreviousPage});for(var i=n;i<=o;i++)r.push({name:i,value:i,active:i===t.pageNum});return r.push({name:"下一页",value:this.option.nextPage,disabled:!this.option.hasNextPage}),e=s.renderHtml(a,{pageArray:r,pageNum:t.pageNum,pages:t.pages})},e.exports=n},61:function(e,t){},82:function(e,t){e.exports='<table class="order-list-table header"> <tr> <th class="cell cell-img">&nbsp;</th> <th class="cell cell-info">商品信息</th> <th class="cell cell-price">单价</th> <th class="cell cell-count">数量</th> <th class="cell cell-total">小计</th> </tr> </table> {{#list}} <table class="order-list-table order-item"> <tr> <td colspan="5" class="order-info"> <span class="order-text"> <span>订单号：</span> <a class="link order-num" href="./order-detail.html?orderNumber={{orderNo}}" target="_blank">{{orderNo}}</a> </span> <span class="order-text">{{createTime}}</span> <span class="order-text">收件人：{{receiverName}}</span> <span class="order-text">订单状态：{{statusDesc}}</span> <span class="order-text"> <span>订单总价：</span> <span class="order-total">￥{{payment}}</span> </span> <a class="link order-detail" href="./order-detail.html?orderNumber={{orderNo}}" target="_blank">查看详情></a> </td> </tr> {{#orderItemVoList}} <tr> <td class="cell cell-img"> <a href="./detail.html?productId={{productId}}" target="_blank"> <img class="p-img" src="{{imageHost}}{{productImage}}" alt="{{productName}}"/> </a> </td> <td class="cell cell-info"> <a class="link" href="./detail.html?productId={{productId}}" target="_blank">{{productName}}</a> </td> <td class="cell cell-price">￥{{currentUnitPrice}}</td> <td class="cell cell-count">{{quantity}}</td> <td class="cell cell-total">￥{{totalPrice}}</td> </tr> {{/orderItemVoList}} </table> {{/list}} {{^list}} <p class="err-tip">您暂时还没有订单</p> {{/list}}'},141:function(e,t,r){"use strict";r(61),r(8),r(7);var s=r(16),a=r(1),n=r(25),o=r(35),i=r(82),c={data:{listParam:{pageNum:1,pageSize:10}},init:function(){this.onLoad()},onLoad:function(){this.loadOrderList(),s.init({name:"order-list"})},loadOrderList:function(){var e=this,t="",r=$(".order-list-con");r.html('<div class="loading"></div>'),n.getOrderList(this.data.listParam,function(s){t=a.renderHtml(i,s),r.html(t),e.loadPagination({hasPreviousPage:s.hasPreviousPage,prePage:s.prePage,hasNextPage:s.hasNextPage,nextPage:s.nextPage,pageNum:s.pageNum,pages:s.pages})},function(e){r.html('<p class="err-tip">加载订单失败，请刷新后重试</p>')})},loadPagination:function(e){var t=this;this.pagination?"":this.pagination=new o,this.pagination.render($.extend({},e,{container:$(".pagination"),onSelectPage:function(e){t.data.listParam.pageNum=e,t.loadOrderList()}}))}};$(function(){c.init()})}});
+webpackJsonp([8],{
+
+/***/ 0:
+/***/ (function(module, exports, __webpack_require__) {
+
+	module.exports = __webpack_require__(154);
+
+
+/***/ }),
+
+/***/ 2:
+/***/ (function(module, exports, __webpack_require__) {
+
+	/*
+	* @Author: zeng
+	* @Date:   2018-01-22 22:04:19
+	* @Last Modified by:   zeng
+	* @Last Modified time: 2018-01-24 22:29:36
+	*/
+
+	'use strict';
+	__webpack_require__(3);
+	var _mm     = __webpack_require__(8);
+	// 通用页面头部
+	var header = {
+	    init : function(){
+	        this.onLoad();
+	        this.bindEvent();
+	    },
+	    onLoad : function(){
+	        var keyword = _mm.getUrlParam('keyword');
+	        // keyword存在，则回填输入框
+	        if(keyword){
+	            $('#search-input').val(keyword);
+	        };
+	    },
+	    bindEvent : function(){
+	        var _this = this;
+	        // 点击搜索按钮以后，做搜索提交
+	        $('#search-btn').click(function(){
+	            _this.searchSubmit();
+	        });
+	        // 输入会车后，做搜索提交
+	        $('#search-input').keyup(function(e){
+	            // 13是回车键的keyCode
+	            if(e.keyCode === 13){
+	                _this.searchSubmit();
+	            }
+	        });
+	    },
+	    // 搜索的提交
+	    searchSubmit : function(){
+	        var keyword = $.trim($('#search-input').val());
+	        // 如果提交的时候有keyword,正常跳转到list页
+	        if(keyword){
+	            window.location.href = './list.html?keyword=' + keyword;
+	        }
+	        // 如果keyword为空，直接返回首页
+	        else{
+	            _mm.goHome();
+	        }
+	    }
+	};
+
+	header.init();
+
+/***/ }),
+
+/***/ 3:
+/***/ (function(module, exports) {
+
+	// removed by extract-text-webpack-plugin
+
+/***/ }),
+
+/***/ 12:
+/***/ (function(module, exports, __webpack_require__) {
+
+	/*
+	* @Author: zeng
+	* @Date:   2018-01-19 14:51:58
+	* @Last Modified by:   zeng
+	* @Last Modified time: 2018-01-24 22:30:15
+	*/
+
+	'use strict';
+	__webpack_require__(13);
+	var _mm     = __webpack_require__(8);
+	var _user   = __webpack_require__(15);
+	var _cart   = __webpack_require__(16);
+	// 导航
+	var nav = {
+	    init : function(){
+	        this.bindEvent();
+	        this.loadUserInfo();
+	        this.loadCartCount();
+	        return this;
+	    },
+	    bindEvent : function(){
+	        // 登录点击事件
+	        $('.js-login').click(function(){
+	            _mm.doLogin();
+	        });
+	        // 注册点击事件
+	        $('.js-register').click(function(){
+	            window.location.href = './user-register.html';
+	        });
+	        // 退出点击事件
+	        $('.js-logout').click(function(){
+	            _user.logout(function(res){
+	                window.location.reload();
+	            }, function(errMsg){
+	                _mm.errorTips(errMsg);
+	            });
+	        });
+	    },
+	    // 加载用户信息
+	    loadUserInfo : function(){
+	        _user.checkLogin(function(res){
+	            $('.user.not-login').hide().siblings('.user.login').show()
+	                .find('.username').text(res.username);
+	        }, function(errMsg){
+	            // do nothing
+	        });
+	    },
+	    // 加载购物车数量
+	    loadCartCount : function(){
+	        _cart.getCartCount(function(res){
+	            $('.nav .cart-count').text(res || 0);
+	        }, function(errMsg){
+	            $('.nav .cart-count').text(0);
+	        });
+	    }
+	};
+
+	module.exports = nav.init();
+
+/***/ }),
+
+/***/ 13:
+/***/ (function(module, exports) {
+
+	// removed by extract-text-webpack-plugin
+
+/***/ }),
+
+/***/ 15:
+/***/ (function(module, exports, __webpack_require__) {
+
+	/*
+	* @Author: zeng
+	* @Date:   2018-01-22 22:04:19
+	* @Last Modified by:   zeng
+	* @Last Modified time: 2018-01-25 09:37:34
+	*/
+
+	'use strict';
+
+	var _mm = __webpack_require__(8);
+
+	var _user = {
+	    // 用户登录
+	    login : function(userInfo, resolve, reject){
+	        _mm.request({
+	            url     : _mm.getServerUrl('/user/login.do'),
+	            data    : userInfo,
+	            method  : 'POST',
+	            success : resolve,
+	            error   : reject
+	        });
+	    },
+	    // 检查用户名
+	    checkUsername : function(username, resolve, reject){
+	        _mm.request({
+	            url     : _mm.getServerUrl('/user/check_valid.do'),
+	            data    : {
+	                type    : 'username',
+	                str     : username
+	            },
+	            method  : 'POST',
+	            success : resolve,
+	            error   : reject
+	        });
+	    },
+	    // 用户注册
+	    register : function(userInfo, resolve, reject){
+	        _mm.request({
+	            url     : _mm.getServerUrl('/user/register.do'),
+	            data    : userInfo,
+	            method  : 'POST',
+	            success : resolve,
+	            error   : reject
+	        });
+	    },
+	    // 检查登录状态
+	    checkLogin : function(resolve, reject){
+	        _mm.request({
+	            url     : _mm.getServerUrl('/user/get_user_info.do'),
+	            method  : 'POST',
+	            success : resolve,
+	            error   : reject
+	        });
+	    },
+	    // 获取用户密码提示问题
+	    getQuestion : function(username, resolve, reject){
+	        _mm.request({
+	            url     : _mm.getServerUrl('/user/forget_get_question.do'),
+	            data    : {
+	                username : username
+	            },
+	            method  : 'POST',
+	            success : resolve,
+	            error   : reject
+	        });
+	    },
+	    // 检查密码提示问题答案
+	    checkAnswer : function(userInfo, resolve, reject){
+	        _mm.request({
+	            url     : _mm.getServerUrl('/user/forget_check_answer.do'),
+	            data    : userInfo,
+	            method  : 'POST',
+	            success : resolve,
+	            error   : reject
+	        });
+	    },
+	    // 重置密码
+	    resetPassword : function(userInfo, resolve, reject){
+	        _mm.request({
+	            url     : _mm.getServerUrl('/user/forget_reset_password.do'),
+	            data    : userInfo,
+	            method  : 'POST',
+	            success : resolve,
+	            error   : reject
+	        });
+	    },
+	    // 获取用户信息
+	    getUserInfo : function(resolve, reject){
+	        _mm.request({
+	            url     : _mm.getServerUrl('/user/get_information.do'),
+	            method  : 'POST',
+	            success : resolve,
+	            error   : reject
+	        });
+	    },
+	    // 更新个人信息
+	    updateUserInfo : function(userInfo, resolve, reject){
+	        _mm.request({
+	            url     : _mm.getServerUrl('/user/update_information.do'),
+	            data    : userInfo,
+	            method  : 'POST',
+	            success : resolve,
+	            error   : reject
+	        });
+	    },
+	    // 登录状态下更新密码
+	    updatePassword : function(userInfo, resolve, reject){
+	        _mm.request({
+	            url     : _mm.getServerUrl('/user/reset_password.do'),
+	            data    : userInfo,
+	            method  : 'POST',
+	            success : resolve,
+	            error   : reject
+	        });
+	    },
+	    // 登出
+	    logout : function(resolve, reject){
+	        _mm.request({
+	            url     : _mm.getServerUrl('/user/logout.do'),
+	            method  : 'POST',
+	            success : resolve,
+	            error   : reject
+	        });
+	    }
+	}
+	module.exports = _user;
+
+/***/ }),
+
+/***/ 16:
+/***/ (function(module, exports, __webpack_require__) {
+
+	/*
+	* @Author: zeng
+	* @Date:   2018-01-22 22:04:19
+	* @Last Modified by:   zeng
+	* @Last Modified time: 2018-01-24 22:26:41
+	*/
+
+	'use strict';
+
+	var _mm = __webpack_require__(8);
+
+	var _cart = {
+	    // 获取购物车数量
+	    getCartCount : function(resolve, reject){
+	        _mm.request({
+	            url     : _mm.getServerUrl('/cart/get_cart_product_count.do'),
+	            success : resolve,
+	            error   : reject
+	        });
+	    },
+	    // 添加到购物车
+	    addToCart : function(productInfo, resolve, reject){
+	        _mm.request({
+	            url     : _mm.getServerUrl('/cart/add.do'),
+	            data    : productInfo,
+	            success : resolve,
+	            error   : reject
+	        });
+	    },
+	    // 获取购物车列表
+	    getCartList : function(resolve, reject){
+	        _mm.request({
+	            url     : _mm.getServerUrl('/cart/list.do'),
+	            success : resolve,
+	            error   : reject
+	        });
+	    },
+	    // 选择购物车商品
+	    selectProduct : function(productId, resolve, reject){
+	        _mm.request({
+	            url     : _mm.getServerUrl('/cart/select.do'),
+	            data    : {
+	                productId : productId
+	            },
+	            success : resolve,
+	            error   : reject
+	        });
+	    },
+	    // 取消选择购物车商品
+	    unselectProduct : function(productId, resolve, reject){
+	        _mm.request({
+	            url     : _mm.getServerUrl('/cart/un_select.do'),
+	            data    : {
+	                productId : productId
+	            },
+	            success : resolve,
+	            error   : reject
+	        });
+	    },
+	    // 选中全部商品
+	    selectAllProduct : function(resolve, reject){
+	        _mm.request({
+	            url     : _mm.getServerUrl('/cart/select_all.do'),
+	            success : resolve,
+	            error   : reject
+	        });
+	    },
+	    // 取消选中全部商品
+	    unselectAllProduct : function(resolve, reject){
+	        _mm.request({
+	            url     : _mm.getServerUrl('/cart/un_select_all.do'),
+	            success : resolve,
+	            error   : reject
+	        });
+	    },
+	    // 更新购物车商品数量
+	    updateProduct : function(productInfo, resolve, reject){
+	        _mm.request({
+	            url     : _mm.getServerUrl('/cart/update.do'),
+	            data    : productInfo,
+	            success : resolve,
+	            error   : reject
+	        });
+	    },
+	    // 删除指定商品
+	    deleteProduct : function(productIds, resolve, reject){
+	        _mm.request({
+	            url     : _mm.getServerUrl('/cart/delete_product.do'),
+	            data    : {
+	                productIds : productIds
+	            },
+	            success : resolve,
+	            error   : reject
+	        });
+	    },
+	}
+	module.exports = _cart;
+
+/***/ }),
+
+/***/ 131:
+/***/ (function(module, exports, __webpack_require__) {
+
+	/*
+	* @Author: zeng
+	* @Date:   2018-01-25 21:30:04
+	* @Last Modified by:   zeng
+	* @Last Modified time: 2018-01-25 21:30:41
+	*/
+
+
+	'use strict';
+	__webpack_require__(132);
+	var _mm                 = __webpack_require__(8);
+	var templatePagination  = __webpack_require__(134);
+
+	var Pagination = function(){
+	    var _this = this;
+	    this.defaultOption = {
+	        container       : null,
+	        pageNum         : 1,
+	        pageRange       : 3,
+	        onSelectPage    : null
+	    };
+	    // 事件的处理
+	    $(document).on('click', '.pg-item', function(){
+	        var $this = $(this);
+	        // 对于active和disabled按钮点击，不做处理
+	        if($this.hasClass('active') || $this.hasClass('disabled')){
+	            return;
+	        }
+	        typeof _this.option.onSelectPage === 'function' 
+	            ? _this.option.onSelectPage($this.data('value')) : null;
+	    });
+	};
+	// 渲染分页组件
+	Pagination.prototype.render = function(userOption){
+	    // 合并选项
+	    this.option = $.extend({}, this.defaultOption, userOption);
+	    // 判断容器是否为合法的jquery对象
+	    if(!(this.option.container instanceof jQuery)){
+	        return;
+	    }
+	    // 判断是否只有1页
+	    if(this.option.pages <= 1){
+	        return;
+	    }
+	    // 渲染分页内容
+	    this.option.container.html(this.getPaginationHtml());
+	};
+	// 获取分页的html, |上一页| 2 3 4 =5= 6 7 8|下一页|  5/9
+	Pagination.prototype.getPaginationHtml = function(){
+	    var html        = '',
+	        option      = this.option,
+	        pageArray   = [],
+	        start       = option.pageNum - option.pageRange > 0 
+	            ? option.pageNum - option.pageRange : 1,
+	        end         = option.pageNum + option.pageRange < option.pages
+	            ? option.pageNum + option.pageRange : option.pages;
+	    // 上一页按钮的数据
+	    pageArray.push({
+	        name : '上一页',
+	        value : this.option.prePage,
+	        disabled : !this.option.hasPreviousPage
+	    });
+	    // 数字按钮的处理
+	    for(var i = start; i <= end; i++){
+	        pageArray.push({
+	            name : i,
+	            value : i,
+	            active : (i === option.pageNum)
+	        });
+	    };
+	    // 下一页按钮的数据
+	    pageArray.push({
+	        name : '下一页',
+	        value : this.option.nextPage,
+	        disabled : !this.option.hasNextPage
+	    });
+	    html = _mm.renderHtml(templatePagination, {
+	        pageArray   : pageArray,
+	        pageNum     : option.pageNum,
+	        pages       : option.pages
+	    });
+	    return html;
+	};
+
+	module.exports = Pagination;
+
+/***/ }),
+
+/***/ 132:
+/***/ (function(module, exports) {
+
+	// removed by extract-text-webpack-plugin
+
+/***/ }),
+
+/***/ 134:
+/***/ (function(module, exports) {
+
+	module.exports = "<div class=\"pg-content\"> {{#pageArray}} {{#disabled}} <span class=\"pg-item disabled\" data-value=\"{{value}}\">{{name}}</span> {{/disabled}} {{^disabled}} {{#active}} <span class=\"pg-item active\" data-value=\"{{value}}\">{{name}}</span> {{/active}} {{^active}} <span class=\"pg-item\" data-value=\"{{value}}\">{{name}}</span> {{/active}} {{/disabled}} {{/pageArray}} <span class=\"pg-total\">{{pageNum}} / {{pages}}</span> </div>";
+
+/***/ }),
+
+/***/ 139:
+/***/ (function(module, exports, __webpack_require__) {
+
+	/*
+	* @Author: zeng
+	* @Date:   2018-01-29 10:26:27
+	* @Last Modified by:   zeng
+	* @Last Modified time: 2018-01-29 10:26:37
+	*/
+
+
+	'use strict';
+	var _mm = __webpack_require__(8);
+
+	var _order = {
+	    // 获取商品列表
+	    getProductList : function(resolve, reject){
+	        _mm.request({
+	            url     : _mm.getServerUrl('/order/get_order_cart_product.do'),
+	            success : resolve,
+	            error   : reject
+	        });
+	    },
+	    // 提交订单
+	    createOrder : function(orderInfo, resolve, reject){
+	        _mm.request({
+	            url     : _mm.getServerUrl('/order/create.do'),
+	            data    : orderInfo,
+	            success : resolve,
+	            error   : reject
+	        });
+	    },
+	    // 获取订单列表
+	    getOrderList : function(listParam, resolve, reject){
+	        _mm.request({
+	            url     : _mm.getServerUrl('/order/list.do'),
+	            data    : listParam,
+	            success : resolve,
+	            error   : reject
+	        });
+	    },
+	    // 获取订单详情
+	    getOrderDetail : function(orderNumber, resolve, reject){
+	        _mm.request({
+	            url     : _mm.getServerUrl('/order/detail.do'),
+	            data    : {
+	                orderNo : orderNumber
+	            },
+	            success : resolve,
+	            error   : reject
+	        });
+	    },
+	    // 取消订单
+	    cancelOrder : function(orderNumber, resolve, reject){
+	        _mm.request({
+	            url     : _mm.getServerUrl('/order/cancel.do'),
+	            data    : {
+	                orderNo : orderNumber
+	            },
+	            success : resolve,
+	            error   : reject
+	        });
+	    }
+	}
+	module.exports = _order;
+
+/***/ }),
+
+/***/ 149:
+/***/ (function(module, exports, __webpack_require__) {
+
+	/*
+	* @Author: zeng
+	* @Date:   2018-01-23 11:08:36
+	* @Last Modified by:   zeng
+	* @Last Modified time: 2018-01-23 11:55:21
+	*/
+	'use strict';
+	__webpack_require__(150);
+	var _mm             = __webpack_require__(8);
+	var templateIndex   = __webpack_require__(152);
+	// 侧边导航
+	var navSide = {
+	    option : {
+	        name : '',
+	        navList : [
+	            {name : 'user-center', desc : '个人中心', href: './user-center.html'},
+	            {name : 'order-list', desc : '我的订单', href: './order-list.html'},
+	            {name : 'user-pass-update', desc : '修改密码', href: './user-pass-update.html'},
+	            {name : 'about', desc : '关于MMall', href: './about.html'}
+	        ]
+	    },
+	    init : function(option){
+	        // 合并选项 所以传入的option必须是对象
+	        $.extend(this.option, option);
+	        this.renderNav();
+	    },
+	    // 渲染导航菜单
+	    renderNav : function(){
+	        // 计算active数据 在.string文件里面会对isActive判断
+	        for(var i = 0, iLength = this.option.navList.length; i < iLength; i++){
+	            if(this.option.navList[i].name === this.option.name){
+	                this.option.navList[i].isActive = true;
+	            }
+	        };
+	        // 渲染list数据 会使用hogan的语法
+	        var navHtml = _mm.renderHtml(templateIndex, {
+	            navList : this.option.navList
+	        });
+	        // 把html放入容器
+	        $('.nav-side').html(navHtml);
+	    }
+	};
+
+	module.exports = navSide;
+
+/***/ }),
+
+/***/ 150:
+/***/ (function(module, exports) {
+
+	// removed by extract-text-webpack-plugin
+
+/***/ }),
+
+/***/ 152:
+/***/ (function(module, exports) {
+
+	module.exports = "{{#navList}} {{#isActive}} <li class=\"nav-item active\"> {{/isActive}} {{^isActive}} </li><li class=\"nav-item\"> {{/isActive}} <a class=\"link\" href=\"{{href}}\">{{desc}}</a> </li> {{/navList}} ";
+
+/***/ }),
+
+/***/ 154:
+/***/ (function(module, exports, __webpack_require__) {
+
+	/*
+	* @Author: zeng
+	* @Date:   2018-01-29 20:17:31
+	* @Last Modified by:   zeng
+	* @Last Modified time: 2018-01-29 21:03:38
+	*/
+
+
+
+	'use strict';
+	__webpack_require__(155);
+	__webpack_require__(12);
+	__webpack_require__(2);
+	var navSide         = __webpack_require__(149);
+	var _mm             = __webpack_require__(8);
+	var _order          = __webpack_require__(139);
+	var Pagination      = __webpack_require__(131);
+	var templateIndex   = __webpack_require__(157);
+
+	// page 逻辑部分
+	var page = {
+	    data: {
+	        listParam : {
+	            pageNum     : 1,
+	            pageSize    : 10
+	        }
+	    },
+	    init: function(){
+	        this.onLoad();
+	    },
+	    onLoad : function(){
+	        this.loadOrderList();
+	        // 初始化左侧菜单
+	        navSide.init({
+	            name: 'order-list'
+	        });
+	    },
+	    // 加载订单列表
+	    loadOrderList: function(){
+	        var _this           = this,
+	            orderListHtml   = '',
+	            $listCon        = $('.order-list-con');
+	        $listCon.html('<div class="loading"></div>');
+	        _order.getOrderList(this.data.listParam, function(res){
+	            // 渲染html
+	            orderListHtml = _mm.renderHtml(templateIndex, res);
+	            $listCon.html(orderListHtml);
+	            _this.loadPagination({
+	                hasPreviousPage : res.hasPreviousPage,
+	                prePage         : res.prePage,
+	                hasNextPage     : res.hasNextPage,
+	                nextPage        : res.nextPage,
+	                pageNum         : res.pageNum,
+	                pages           : res.pages
+	            });
+	        }, function(errMsg){
+	            $listCon.html('<p class="err-tip">加载订单失败，请刷新后重试</p>');
+	        });
+	    },
+	    // 加载分页信息
+	    loadPagination : function(pageInfo){
+	        var _this = this;
+	        this.pagination ? '' : (this.pagination = new Pagination());
+	        this.pagination.render($.extend({}, pageInfo, {
+	            container : $('.pagination'),
+	            onSelectPage : function(pageNum){
+	                _this.data.listParam.pageNum = pageNum;
+	                _this.loadOrderList();
+	            }
+	        }));
+	    }
+	};
+	$(function(){
+	    page.init();
+	});
+
+/***/ }),
+
+/***/ 155:
+/***/ (function(module, exports) {
+
+	// removed by extract-text-webpack-plugin
+
+/***/ }),
+
+/***/ 157:
+/***/ (function(module, exports) {
+
+	module.exports = "<table class=\"order-list-table header\"> <tr> <th class=\"cell cell-img\">&nbsp;</th> <th class=\"cell cell-info\">商品信息</th> <th class=\"cell cell-price\">单价</th> <th class=\"cell cell-count\">数量</th> <th class=\"cell cell-total\">小计</th> </tr> </table> {{#list}} <table class=\"order-list-table order-item\"> <tr> <td colspan=\"5\" class=\"order-info\"> <span class=\"order-text\"> <span>订单号：</span> <a class=\"link order-num\" href=\"./order-detail.html?orderNumber={{orderNo}}\" target=\"_blank\">{{orderNo}}</a> </span> <span class=\"order-text\">{{createTime}}</span> <span class=\"order-text\">收件人：{{receiverName}}</span> <span class=\"order-text\">订单状态：{{statusDesc}}</span> <span class=\"order-text\"> <span>订单总价：</span> <span class=\"order-total\">￥{{payment}}</span> </span> <a class=\"link order-detail\" href=\"./order-detail.html?orderNumber={{orderNo}}\" target=\"_blank\">查看详情></a> </td> </tr> {{#orderItemVoList}} <tr> <td class=\"cell cell-img\"> <a href=\"./detail.html?productId={{productId}}\" target=\"_blank\"> <img class=\"p-img\" src=\"{{imageHost}}{{productImage}}\" alt=\"{{productName}}\"/> </a> </td> <td class=\"cell cell-info\"> <a class=\"link\" href=\"./detail.html?productId={{productId}}\" target=\"_blank\">{{productName}}</a> </td> <td class=\"cell cell-price\">￥{{currentUnitPrice}}</td> <td class=\"cell cell-count\">{{quantity}}</td> <td class=\"cell cell-total\">￥{{totalPrice}}</td> </tr> {{/orderItemVoList}} </table> {{/list}} {{^list}} <p class=\"err-tip\">您暂时还没有订单</p> {{/list}}";
+
+/***/ })
+
+});

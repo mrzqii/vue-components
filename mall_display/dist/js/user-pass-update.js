@@ -1,1 +1,542 @@
-webpackJsonp([8],{0:function(e,r,t){e.exports=t(148)},2:function(e,r,t){"use strict";var s=t(1),o={login:function(e,r,t){s.request({url:s.getServerUrl("/user/login.do"),data:e,method:"POST",success:r,error:t})},checkUsername:function(e,r,t){s.request({url:s.getServerUrl("/user/check_valid.do"),data:{type:"username",str:e},method:"POST",success:r,error:t})},register:function(e,r,t){s.request({url:s.getServerUrl("/user/register.do"),data:e,method:"POST",success:r,error:t})},checkLogin:function(e,r){s.request({url:s.getServerUrl("/user/get_user_info.do"),method:"POST",success:e,error:r})},getQuestion:function(e,r,t){s.request({url:s.getServerUrl("/user/forget_get_question.do"),data:{username:e},method:"POST",success:r,error:t})},checkAnswer:function(e,r,t){s.request({url:s.getServerUrl("/user/forget_check_answer.do"),data:e,method:"POST",success:r,error:t})},resetPassword:function(e,r,t){s.request({url:s.getServerUrl("/user/forget_reset_password.do"),data:e,method:"POST",success:r,error:t})},getUserInfo:function(e,r){s.request({url:s.getServerUrl("/user/get_information.do"),method:"POST",success:e,error:r})},updateUserInfo:function(e,r,t){s.request({url:s.getServerUrl("/user/update_information.do"),data:e,method:"POST",success:r,error:t})},updatePassword:function(e,r,t){s.request({url:s.getServerUrl("/user/reset_password.do"),data:e,method:"POST",success:r,error:t})},logout:function(e,r){s.request({url:s.getServerUrl("/user/logout.do"),method:"POST",success:e,error:r})}};e.exports=o},4:function(e,r,t){"use strict";var s=t(1),o={getCartCount:function(e,r){s.request({url:s.getServerUrl("/cart/get_cart_product_count.do"),success:e,error:r})},addToCart:function(e,r,t){s.request({url:s.getServerUrl("/cart/add.do"),data:e,success:r,error:t})},getCartList:function(e,r){s.request({url:s.getServerUrl("/cart/list.do"),success:e,error:r})},selectProduct:function(e,r,t){s.request({url:s.getServerUrl("/cart/select.do"),data:{productId:e},success:r,error:t})},unselectProduct:function(e,r,t){s.request({url:s.getServerUrl("/cart/un_select.do"),data:{productId:e},success:r,error:t})},selectAllProduct:function(e,r){s.request({url:s.getServerUrl("/cart/select_all.do"),success:e,error:r})},unselectAllProduct:function(e,r){s.request({url:s.getServerUrl("/cart/un_select_all.do"),success:e,error:r})},updateProduct:function(e,r,t){s.request({url:s.getServerUrl("/cart/update.do"),data:e,success:r,error:t})},deleteProduct:function(e,r,t){s.request({url:s.getServerUrl("/cart/delete_product.do"),data:{productIds:e},success:r,error:t})}};e.exports=o},5:function(e,r){},6:function(e,r){},7:function(e,r,t){"use strict";t(5);var s=t(1),o={init:function(){this.onLoad(),this.bindEvent()},onLoad:function(){var e=s.getUrlParam("keyword");e&&$("#search-input").val(e)},bindEvent:function(){var e=this;$("#search-btn").click(function(){e.searchSubmit()}),$("#search-input").keyup(function(r){13===r.keyCode&&e.searchSubmit()})},searchSubmit:function(){var e=$.trim($("#search-input").val());e?window.location.href="./list.html?keyword="+e:s.goHome()}};o.init()},8:function(e,r,t){"use strict";t(6);var s=t(1),o=t(2),n=t(4),u={init:function(){return this.bindEvent(),this.loadUserInfo(),this.loadCartCount(),this},bindEvent:function(){$(".js-login").click(function(){s.doLogin()}),$(".js-register").click(function(){window.location.href="./user-register.html"}),$(".js-logout").click(function(){o.logout(function(e){window.location.reload()},function(e){s.errorTips(e)})})},loadUserInfo:function(){o.checkLogin(function(e){$(".user.not-login").hide().siblings(".user.login").show().find(".username").text(e.username)},function(e){})},loadCartCount:function(){n.getCartCount(function(e){$(".nav .cart-count").text(e||0)},function(e){$(".nav .cart-count").text(0)})}};e.exports=u.init()},13:function(e,r){},14:function(e,r){e.exports='{{#navList}} {{#isActive}} <li class="nav-item active"> {{/isActive}} {{^isActive}} </li><li class="nav-item"> {{/isActive}} <a class="link" href="{{href}}">{{desc}}</a> </li> {{/navList}} '},16:function(e,r,t){"use strict";t(13);var s=t(1),o=t(14),n={option:{name:"",navList:[{name:"user-center",desc:"个人中心",href:"./user-center.html"},{name:"order-list",desc:"我的订单",href:"./order-list.html"},{name:"user-pass-update",desc:"修改密码",href:"./user-pass-update.html"},{name:"about",desc:"关于MMall",href:"./about.html"}]},init:function(e){$.extend(this.option,e),this.renderNav()},renderNav:function(){for(var e=0,r=this.option.navList.length;e<r;e++)this.option.navList[e].name===this.option.name&&(this.option.navList[e].isActive=!0);var t=s.renderHtml(o,{navList:this.option.navList});$(".nav-side").html(t)}};e.exports=n},68:function(e,r){},148:function(e,r,t){"use strict";t(68),t(8),t(7);var s=t(16),o=t(1),n=t(2),u={init:function(){this.onLoad(),this.bindEvent()},onLoad:function(){s.init({name:"user-pass-update"})},bindEvent:function(){var e=this;$(document).on("click",".btn-submit",function(){var r={password:$.trim($("#password").val()),passwordNew:$.trim($("#password-new").val()),passwordConfirm:$.trim($("#password-confirm").val())},t=e.validateForm(r);t.status?n.updatePassword({passwordOld:r.password,passwordNew:r.passwordNew},function(e,r){o.successTips(r)},function(e){o.errorTips(e)}):o.errorTips(t.msg)})},validateForm:function(e){var r={status:!1,msg:""};return o.validate(e.password,"require")?!e.passwordNew||e.passwordNew.length<6?(r.msg="密码长度不得少于6位",r):e.passwordNew!==e.passwordConfirm?(r.msg="两次输入的密码不一致",r):(r.status=!0,r.msg="验证通过",r):(r.msg="原密码不能为空",r)}};$(function(){u.init()})}});
+webpackJsonp([15],{
+
+/***/ 0:
+/***/ (function(module, exports, __webpack_require__) {
+
+	module.exports = __webpack_require__(183);
+
+
+/***/ }),
+
+/***/ 2:
+/***/ (function(module, exports, __webpack_require__) {
+
+	/*
+	* @Author: zeng
+	* @Date:   2018-01-22 22:04:19
+	* @Last Modified by:   zeng
+	* @Last Modified time: 2018-01-24 22:29:36
+	*/
+
+	'use strict';
+	__webpack_require__(3);
+	var _mm     = __webpack_require__(8);
+	// 通用页面头部
+	var header = {
+	    init : function(){
+	        this.onLoad();
+	        this.bindEvent();
+	    },
+	    onLoad : function(){
+	        var keyword = _mm.getUrlParam('keyword');
+	        // keyword存在，则回填输入框
+	        if(keyword){
+	            $('#search-input').val(keyword);
+	        };
+	    },
+	    bindEvent : function(){
+	        var _this = this;
+	        // 点击搜索按钮以后，做搜索提交
+	        $('#search-btn').click(function(){
+	            _this.searchSubmit();
+	        });
+	        // 输入会车后，做搜索提交
+	        $('#search-input').keyup(function(e){
+	            // 13是回车键的keyCode
+	            if(e.keyCode === 13){
+	                _this.searchSubmit();
+	            }
+	        });
+	    },
+	    // 搜索的提交
+	    searchSubmit : function(){
+	        var keyword = $.trim($('#search-input').val());
+	        // 如果提交的时候有keyword,正常跳转到list页
+	        if(keyword){
+	            window.location.href = './list.html?keyword=' + keyword;
+	        }
+	        // 如果keyword为空，直接返回首页
+	        else{
+	            _mm.goHome();
+	        }
+	    }
+	};
+
+	header.init();
+
+/***/ }),
+
+/***/ 3:
+/***/ (function(module, exports) {
+
+	// removed by extract-text-webpack-plugin
+
+/***/ }),
+
+/***/ 12:
+/***/ (function(module, exports, __webpack_require__) {
+
+	/*
+	* @Author: zeng
+	* @Date:   2018-01-19 14:51:58
+	* @Last Modified by:   zeng
+	* @Last Modified time: 2018-01-24 22:30:15
+	*/
+
+	'use strict';
+	__webpack_require__(13);
+	var _mm     = __webpack_require__(8);
+	var _user   = __webpack_require__(15);
+	var _cart   = __webpack_require__(16);
+	// 导航
+	var nav = {
+	    init : function(){
+	        this.bindEvent();
+	        this.loadUserInfo();
+	        this.loadCartCount();
+	        return this;
+	    },
+	    bindEvent : function(){
+	        // 登录点击事件
+	        $('.js-login').click(function(){
+	            _mm.doLogin();
+	        });
+	        // 注册点击事件
+	        $('.js-register').click(function(){
+	            window.location.href = './user-register.html';
+	        });
+	        // 退出点击事件
+	        $('.js-logout').click(function(){
+	            _user.logout(function(res){
+	                window.location.reload();
+	            }, function(errMsg){
+	                _mm.errorTips(errMsg);
+	            });
+	        });
+	    },
+	    // 加载用户信息
+	    loadUserInfo : function(){
+	        _user.checkLogin(function(res){
+	            $('.user.not-login').hide().siblings('.user.login').show()
+	                .find('.username').text(res.username);
+	        }, function(errMsg){
+	            // do nothing
+	        });
+	    },
+	    // 加载购物车数量
+	    loadCartCount : function(){
+	        _cart.getCartCount(function(res){
+	            $('.nav .cart-count').text(res || 0);
+	        }, function(errMsg){
+	            $('.nav .cart-count').text(0);
+	        });
+	    }
+	};
+
+	module.exports = nav.init();
+
+/***/ }),
+
+/***/ 13:
+/***/ (function(module, exports) {
+
+	// removed by extract-text-webpack-plugin
+
+/***/ }),
+
+/***/ 15:
+/***/ (function(module, exports, __webpack_require__) {
+
+	/*
+	* @Author: zeng
+	* @Date:   2018-01-22 22:04:19
+	* @Last Modified by:   zeng
+	* @Last Modified time: 2018-01-25 09:37:34
+	*/
+
+	'use strict';
+
+	var _mm = __webpack_require__(8);
+
+	var _user = {
+	    // 用户登录
+	    login : function(userInfo, resolve, reject){
+	        _mm.request({
+	            url     : _mm.getServerUrl('/user/login.do'),
+	            data    : userInfo,
+	            method  : 'POST',
+	            success : resolve,
+	            error   : reject
+	        });
+	    },
+	    // 检查用户名
+	    checkUsername : function(username, resolve, reject){
+	        _mm.request({
+	            url     : _mm.getServerUrl('/user/check_valid.do'),
+	            data    : {
+	                type    : 'username',
+	                str     : username
+	            },
+	            method  : 'POST',
+	            success : resolve,
+	            error   : reject
+	        });
+	    },
+	    // 用户注册
+	    register : function(userInfo, resolve, reject){
+	        _mm.request({
+	            url     : _mm.getServerUrl('/user/register.do'),
+	            data    : userInfo,
+	            method  : 'POST',
+	            success : resolve,
+	            error   : reject
+	        });
+	    },
+	    // 检查登录状态
+	    checkLogin : function(resolve, reject){
+	        _mm.request({
+	            url     : _mm.getServerUrl('/user/get_user_info.do'),
+	            method  : 'POST',
+	            success : resolve,
+	            error   : reject
+	        });
+	    },
+	    // 获取用户密码提示问题
+	    getQuestion : function(username, resolve, reject){
+	        _mm.request({
+	            url     : _mm.getServerUrl('/user/forget_get_question.do'),
+	            data    : {
+	                username : username
+	            },
+	            method  : 'POST',
+	            success : resolve,
+	            error   : reject
+	        });
+	    },
+	    // 检查密码提示问题答案
+	    checkAnswer : function(userInfo, resolve, reject){
+	        _mm.request({
+	            url     : _mm.getServerUrl('/user/forget_check_answer.do'),
+	            data    : userInfo,
+	            method  : 'POST',
+	            success : resolve,
+	            error   : reject
+	        });
+	    },
+	    // 重置密码
+	    resetPassword : function(userInfo, resolve, reject){
+	        _mm.request({
+	            url     : _mm.getServerUrl('/user/forget_reset_password.do'),
+	            data    : userInfo,
+	            method  : 'POST',
+	            success : resolve,
+	            error   : reject
+	        });
+	    },
+	    // 获取用户信息
+	    getUserInfo : function(resolve, reject){
+	        _mm.request({
+	            url     : _mm.getServerUrl('/user/get_information.do'),
+	            method  : 'POST',
+	            success : resolve,
+	            error   : reject
+	        });
+	    },
+	    // 更新个人信息
+	    updateUserInfo : function(userInfo, resolve, reject){
+	        _mm.request({
+	            url     : _mm.getServerUrl('/user/update_information.do'),
+	            data    : userInfo,
+	            method  : 'POST',
+	            success : resolve,
+	            error   : reject
+	        });
+	    },
+	    // 登录状态下更新密码
+	    updatePassword : function(userInfo, resolve, reject){
+	        _mm.request({
+	            url     : _mm.getServerUrl('/user/reset_password.do'),
+	            data    : userInfo,
+	            method  : 'POST',
+	            success : resolve,
+	            error   : reject
+	        });
+	    },
+	    // 登出
+	    logout : function(resolve, reject){
+	        _mm.request({
+	            url     : _mm.getServerUrl('/user/logout.do'),
+	            method  : 'POST',
+	            success : resolve,
+	            error   : reject
+	        });
+	    }
+	}
+	module.exports = _user;
+
+/***/ }),
+
+/***/ 16:
+/***/ (function(module, exports, __webpack_require__) {
+
+	/*
+	* @Author: zeng
+	* @Date:   2018-01-22 22:04:19
+	* @Last Modified by:   zeng
+	* @Last Modified time: 2018-01-24 22:26:41
+	*/
+
+	'use strict';
+
+	var _mm = __webpack_require__(8);
+
+	var _cart = {
+	    // 获取购物车数量
+	    getCartCount : function(resolve, reject){
+	        _mm.request({
+	            url     : _mm.getServerUrl('/cart/get_cart_product_count.do'),
+	            success : resolve,
+	            error   : reject
+	        });
+	    },
+	    // 添加到购物车
+	    addToCart : function(productInfo, resolve, reject){
+	        _mm.request({
+	            url     : _mm.getServerUrl('/cart/add.do'),
+	            data    : productInfo,
+	            success : resolve,
+	            error   : reject
+	        });
+	    },
+	    // 获取购物车列表
+	    getCartList : function(resolve, reject){
+	        _mm.request({
+	            url     : _mm.getServerUrl('/cart/list.do'),
+	            success : resolve,
+	            error   : reject
+	        });
+	    },
+	    // 选择购物车商品
+	    selectProduct : function(productId, resolve, reject){
+	        _mm.request({
+	            url     : _mm.getServerUrl('/cart/select.do'),
+	            data    : {
+	                productId : productId
+	            },
+	            success : resolve,
+	            error   : reject
+	        });
+	    },
+	    // 取消选择购物车商品
+	    unselectProduct : function(productId, resolve, reject){
+	        _mm.request({
+	            url     : _mm.getServerUrl('/cart/un_select.do'),
+	            data    : {
+	                productId : productId
+	            },
+	            success : resolve,
+	            error   : reject
+	        });
+	    },
+	    // 选中全部商品
+	    selectAllProduct : function(resolve, reject){
+	        _mm.request({
+	            url     : _mm.getServerUrl('/cart/select_all.do'),
+	            success : resolve,
+	            error   : reject
+	        });
+	    },
+	    // 取消选中全部商品
+	    unselectAllProduct : function(resolve, reject){
+	        _mm.request({
+	            url     : _mm.getServerUrl('/cart/un_select_all.do'),
+	            success : resolve,
+	            error   : reject
+	        });
+	    },
+	    // 更新购物车商品数量
+	    updateProduct : function(productInfo, resolve, reject){
+	        _mm.request({
+	            url     : _mm.getServerUrl('/cart/update.do'),
+	            data    : productInfo,
+	            success : resolve,
+	            error   : reject
+	        });
+	    },
+	    // 删除指定商品
+	    deleteProduct : function(productIds, resolve, reject){
+	        _mm.request({
+	            url     : _mm.getServerUrl('/cart/delete_product.do'),
+	            data    : {
+	                productIds : productIds
+	            },
+	            success : resolve,
+	            error   : reject
+	        });
+	    },
+	}
+	module.exports = _cart;
+
+/***/ }),
+
+/***/ 149:
+/***/ (function(module, exports, __webpack_require__) {
+
+	/*
+	* @Author: zeng
+	* @Date:   2018-01-23 11:08:36
+	* @Last Modified by:   zeng
+	* @Last Modified time: 2018-01-23 11:55:21
+	*/
+	'use strict';
+	__webpack_require__(150);
+	var _mm             = __webpack_require__(8);
+	var templateIndex   = __webpack_require__(152);
+	// 侧边导航
+	var navSide = {
+	    option : {
+	        name : '',
+	        navList : [
+	            {name : 'user-center', desc : '个人中心', href: './user-center.html'},
+	            {name : 'order-list', desc : '我的订单', href: './order-list.html'},
+	            {name : 'user-pass-update', desc : '修改密码', href: './user-pass-update.html'},
+	            {name : 'about', desc : '关于MMall', href: './about.html'}
+	        ]
+	    },
+	    init : function(option){
+	        // 合并选项 所以传入的option必须是对象
+	        $.extend(this.option, option);
+	        this.renderNav();
+	    },
+	    // 渲染导航菜单
+	    renderNav : function(){
+	        // 计算active数据 在.string文件里面会对isActive判断
+	        for(var i = 0, iLength = this.option.navList.length; i < iLength; i++){
+	            if(this.option.navList[i].name === this.option.name){
+	                this.option.navList[i].isActive = true;
+	            }
+	        };
+	        // 渲染list数据 会使用hogan的语法
+	        var navHtml = _mm.renderHtml(templateIndex, {
+	            navList : this.option.navList
+	        });
+	        // 把html放入容器
+	        $('.nav-side').html(navHtml);
+	    }
+	};
+
+	module.exports = navSide;
+
+/***/ }),
+
+/***/ 150:
+/***/ (function(module, exports) {
+
+	// removed by extract-text-webpack-plugin
+
+/***/ }),
+
+/***/ 152:
+/***/ (function(module, exports) {
+
+	module.exports = "{{#navList}} {{#isActive}} <li class=\"nav-item active\"> {{/isActive}} {{^isActive}} </li><li class=\"nav-item\"> {{/isActive}} <a class=\"link\" href=\"{{href}}\">{{desc}}</a> </li> {{/navList}} ";
+
+/***/ }),
+
+/***/ 183:
+/***/ (function(module, exports, __webpack_require__) {
+
+	/*
+	* @Author: zeng
+	* @Date:   2018-01-25 09:42:26
+	* @Last Modified by:   zeng
+	* @Last Modified time: 2018-01-25 10:06:31
+	*/
+
+	'use strict';
+	__webpack_require__(184);
+	__webpack_require__(12);
+	__webpack_require__(2);
+	var navSide         = __webpack_require__(149);
+	var _mm             = __webpack_require__(8);
+	var _user           = __webpack_require__(15);
+
+	// page 逻辑部分
+	var page = {
+	    init: function(){
+	        this.onLoad();
+	        this.bindEvent();
+	    },
+	    onLoad : function(){
+	        // 初始化左侧菜单
+	        navSide.init({
+	            name: 'user-pass-update'
+	        });
+	    },
+	    bindEvent : function(){
+	        var _this = this;
+	        // 点击提交按钮后的动作
+	        $(document).on('click', '.btn-submit', function(){
+	            var userInfo = {
+	                password        : $.trim($('#password').val()),
+	                passwordNew     : $.trim($('#password-new').val()),
+	                passwordConfirm : $.trim($('#password-confirm').val())
+	            },
+	            validateResult = _this.validateForm(userInfo);
+	            if(validateResult.status){
+	                // 更改用户密码
+	                _user.updatePassword({
+	                    passwordOld : userInfo.password,
+	                    passwordNew : userInfo.passwordNew
+	                }, function(res, msg){
+	                    _mm.successTips(msg);
+	                }, function(errMsg){
+	                    _mm.errorTips(errMsg);
+	                });
+	            }
+	            else{
+	                _mm.errorTips(validateResult.msg);
+	            }
+	        });
+	    },
+	    // 验证字段信息
+	    validateForm : function(formData){
+	        var result = {
+	            status  : false,
+	            msg     : ''
+	        };
+	        // 验证原密码是否为空
+	        if(!_mm.validate(formData.password, 'require')){
+	            result.msg = '原密码不能为空';
+	            return result;
+	        }
+	        // 验证新密码长度
+	        if(!formData.passwordNew || formData.passwordNew.length < 6){
+	            result.msg = '密码长度不得少于6位';
+	            return result;
+	        }
+	        // 验证两次输入的密码是否一致
+	        if(formData.passwordNew !== formData.passwordConfirm){
+	            result.msg = '两次输入的密码不一致';
+	            return result;
+	        }
+	        // 通过验证，返回正确提示
+	        result.status   = true;
+	        result.msg      = '验证通过';
+	        return result;
+	    }
+	};
+	$(function(){
+	    page.init();
+	});
+
+/***/ }),
+
+/***/ 184:
+/***/ (function(module, exports) {
+
+	// removed by extract-text-webpack-plugin
+
+/***/ })
+
+});
