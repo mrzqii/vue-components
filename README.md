@@ -1,7 +1,7 @@
 # vue components
 ⚓vue组件化开发的京东金融页面  
 
-####  [演示：](https://mrzqii.github.io/display/vueJD)
+####  [项目演示：](https://mrzqii.github.io/vue-components/vueJD/#/)
 
 ### vue组件化
 - 理解组件化思想
