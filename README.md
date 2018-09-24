@@ -1,4 +1,4 @@
-# display
+# vue components
 ⚓vue组件化开发的京东金融页面
 
 ### vue组件化
