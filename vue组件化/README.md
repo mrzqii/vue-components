@@ -1,4 +1,4 @@
-[### 项目演示](https://mrzqii.github.io/display/vueJD)
+[### 项目演示](https://mrzqii.github.io/vue-components/vueJD)
 
 # SPA手机京东金融
 
